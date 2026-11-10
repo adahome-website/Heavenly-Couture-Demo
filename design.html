@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Custom builder — Heavenly Couture</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&amp;family=Libre+Caslon+Text:ital@0;1&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+@media (max-width: 700px){.hc-arrows button{display:none !important}}
+body{margin:0;background:#FFFFFF}
+a{color:#1C1B19}a:hover{color:#6B5A44}
+@keyframes hc-bump-a{0%{transform:scale(1)}30%{transform:scale(1.22) rotate(-8deg)}60%{transform:scale(.94) rotate(4deg)}100%{transform:scale(1)}}
+@keyframes hc-bump-b{0%{transform:scale(1)}30%{transform:scale(1.22) rotate(-8deg)}60%{transform:scale(.94) rotate(4deg)}100%{transform:scale(1)}}
+.hc-bump-a{animation:hc-bump-a .6s ease}
+.hc-bump-b{animation:hc-bump-b .6s ease}
+.hc-savedname:hover{text-decoration:underline !important;text-underline-offset:3px}.hc-savedimg img{transition:transform .25s ease}.hc-savedimg:hover img{transform:scale(1.05)}
+.hc-mini-prev{display:none}@media (max-width: 860px){.hc-mini-prev{display:flex;animation:hc-minipop .25s ease both}}@keyframes hc-minipop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes hc-toast{from{opacity:0;transform:translate(-50%,16px)}to{opacity:1;transform:translate(-50%,0)}}
+.hc-sr:hover{background:#F4F2EF}
+@media (max-width: 760px){.hc-foot{grid-template-columns:1fr 1fr !important}.hc-foot > :first-child{grid-column:1 / -1}}
+.hc-drag:hover{outline:1.5px dashed rgba(28,27,25,0.45)}.hc-drag:active{cursor:grabbing}
+@keyframes hc-ideas{to{transform:translateX(calc(-50% - 8px))}}.hc-ideas-track{animation:hc-ideas 50s linear infinite}@media (prefers-reduced-motion: reduce){.hc-ideas-track{animation:none}.hc-ideas{overflow-x:auto !important}}
+@media (max-width: 600px){.hc-ideas-track > div{flex-basis:300px !important}.hc-ideas-track img:not([aria-hidden]){width:96px !important;height:96px !important;flex-basis:96px !important}}
+@keyframes hc-slideout{from{opacity:1;transform:none}to{opacity:0;transform:translateX(100%)}}@keyframes hc-fadeout2{from{opacity:1}to{opacity:0}}.hc-bagwrap.hc-out .hc-bagpanel{animation:hc-slideout .34s cubic-bezier(.4,0,.6,1) both}.hc-bagwrap.hc-out .hc-bagbg{animation:hc-fadeout2 .34s ease both}.hc-bagwrap.hc-out{pointer-events:none}@media (prefers-reduced-motion: reduce){.hc-bagwrap.hc-out .hc-bagpanel,.hc-bagwrap.hc-out .hc-bagbg{animation:none}}
+@keyframes hc-fadein{from{opacity:0}to{opacity:1}}@keyframes hc-slidein{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}.hc-bagbg{animation:hc-fadein .3s ease both}.hc-bagpanel{animation:hc-slidein .38s cubic-bezier(.2,.8,.2,1) both}@media (prefers-reduced-motion: reduce){.hc-bagbg,.hc-bagpanel{animation:none}}
+
+.hc-megalink:hover{color:#1B6A86 !important;text-decoration:underline;text-underline-offset:4px}
+.hc-card{box-shadow:0 6px 22px rgba(28,27,25,0.07);border:1px solid #F0EDE8}
+@media (max-width: 860px){.hc-mega,.hc-megabg{display:none !important}}
+
+.hc-steps > div + div{border-top:1px solid #EEEBE6;padding-top:24px}
+.hc-opt{transition:background .15s,border-color .15s}
+.hc-nav a:not([aria-current]):hover,.hc-nav button:not([aria-current]):hover{background:transparent !important;color:#1C1B19 !important;text-decoration:underline !important;text-decoration-thickness:1.5px !important;text-underline-offset:6px !important}
+@media (prefers-reduced-motion: reduce){.hc-bump-a,.hc-bump-b{animation:none}}
+@media (max-width: 1024px){
+.hc-prow{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:12px;scrollbar-width:none}
+.hc-prow::-webkit-scrollbar{display:none}
+.hc-prow > *{flex:0 0 260px;scroll-snap-align:start}
+}
+@media (max-width: 600px){.hc-prow > *{flex-basis:72vw}}
+.hc-burger{display:none}
+@media (max-width: 860px){.hc-two{grid-template-columns:1fr !important}.hc-sticky{position:relative !important;top:0 !important}.hc-pv-logo{display:none}}
+@media (max-width: 860px){
+.hc-header{flex-wrap:nowrap !important;padding:10px 16px !important;gap:8px !important}
+.hc-hleft{flex-wrap:nowrap !important;gap:10px !important;min-width:0}
+.hc-burger{display:flex !important}
+.hc-nav,.hc-search,.hc-acct{display:none !important}
+.hc-logo img{width:156px !important}
+.hc-hright{gap:6px !important}
+.hc-icon{width:42px !important;height:42px !important}.hc-burger{width:40px !important;height:44px !important}
+.hc-icon > span{top:-3px !important;right:-3px !important;min-width:18px !important;height:18px !important;font-size:10px !important;padding:0 4px !important}
+}
+
+@media (max-width: 860px){.hc-two{grid-template-columns:1fr !important}.hc-sticky{position:relative !important;top:0 !important}}
+.hc-hbtn:hover{background:#E4F0F2 !important}
+.hc-search input:focus{outline:none}.hc-search:focus-within{border-color:#1C1B19 !important;background:#FFFFFF !important}
+@media (max-width: 860px){.hc-stoggle{display:none !important}}
+@media (max-width: 600px){.hc-ideas{overflow-x:auto !important;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-padding-left:32px;-webkit-overflow-scrolling:touch}.hc-ideas::-webkit-scrollbar{display:none}.hc-ideas-track{animation:none !important;transform:none !important;padding-right:32px}.hc-ideas-track > [aria-hidden="true"]{display:none !important}.hc-ideas-track > div{scroll-snap-align:start}}
+.hc-trio-card{transition:transform .25s ease}.hc-trio-card:hover{transform:translateY(-4px)}
+@media (max-width: 900px){.hc-trio{grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important}.hc-trio > :nth-child(2){grid-column:1 / -1;order:-1}.hc-trio > *{min-height:260px !important}}
+@media (max-width: 600px){.hc-trio{grid-template-columns:minmax(0,1fr) !important;gap:14px !important}.hc-trio > *{min-height:240px !important}.hc-trio > :nth-child(2) > div:last-child{padding:22px !important}.hc-trio > :nth-child(2){order:0}}
+@media (max-width: 600px){.hc-trio > a.hc-trio-card{display:none !important}}
+</style>
+</helmet>
+<div style="background: #FFFFFF; color: #1C1B19; font-family: 'Inter', system-ui, sans-serif; padding: 0 0 40px; overflow-x: clip;">
+  <div style="max-width: 1320px; margin: 0 auto; padding: 0 28px; display: flex; flex-direction: column; gap: 22px;">
+    <header class="hc-header" style="position: relative; z-index: 3; margin: 0 calc(50% - 50vw); width: 100vw; box-sizing: border-box; padding: 14px max(28px, calc(50vw - 632px)); border-radius: 0; background: #FFFFFF; border-bottom: 1px solid #E6E1D9; box-shadow: 0 4px 16px rgba(28,27,25,0.06); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;">
+        <div class="hc-hleft" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 40px;">
+          <button type="button" class="hc-burger" aria-label="Open menu" aria-expanded="{{menuAttr}}" onClick="{{openMenu}}" style="width: 40px; height: 44px; margin-left: -10px; border-radius: 8px; border: 0; background: transparent; color: #1C1B19; cursor: pointer; align-items: center; justify-content: center; flex: 0 0 auto;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
+          <a href="index.html" class="hc-logo"><img src="images/01ed9a5cb67c9193ea8dd6dd5310208e.png" alt="Heavenly Couture" style="width: 190px; height: auto; display: block;"></a>
+          <nav aria-label="Main" class="hc-nav" style="display: flex; flex-wrap: wrap; gap: 4px; align-items: center; font-size: 14px; font-weight: 500;"><a href="index.html" onClick="{{closeMega}}" style="text-decoration: none; padding: 9px 14px; border-radius: 999px; ">Home</a><a href="shop.html" aria-expanded="{{megaAttr}}" aria-haspopup="true" onClick="{{toggleMega}}" style="text-decoration: none; padding: 9px 14px; border-radius: 999px; border: 0; font: inherit; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; background: transparent; color: #1C1B19; font-weight: 500; text-decoration: none;">Shop<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></a><a href="design.html" onClick="{{closeMega}}" aria-current="page" style="text-decoration: none; font-weight: 600; background: #1C1B19; color: #FFFFFF; padding: 9px 16px; border-radius: 999px; ">Design your own</a><a href="visit.html" onClick="{{closeMega}}" style="text-decoration: none; padding: 9px 14px; border-radius: 999px; ">Visit us</a></nav>
+        </div>
+        <div class="hc-hright" style="flex: 1 1 auto; display: flex; align-items: center; justify-content: flex-end; gap: 8px;">
+          <form role="search" class="hc-search" onSubmit="{{noSubmit}}" style="{{sboxStyle}} position: relative; flex: 0 1 280px; min-width: 180px; display: flex; align-items: center; gap: 8px; border: 1px solid #E6E1D9; border-radius: 999px; padding: 0 14px; background: #F4F2EF;">
+            <label for="fv-search" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Search</label>
+            <input id="fv-search" ref="{{focusSearch}}" onBlur="{{blurSearch}}" type="search" autocomplete="off" placeholder="Search hoodies, necklaces, towels…" value="{{searchQ}}" onInput="{{setQ}}" style="flex: 1; min-width: 0; border: 0; background: transparent; padding: 11px 0; font: inherit; font-size: 14px; color: #1C1B19;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1C1B19" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+          <sc-if value="{{searchOpen}}" hint-placeholder-val="{{false}}">
+              <div role="listbox" aria-label="Search results" style="position: absolute; top: calc(100% + 10px); right: 0; width: min(92vw, 440px); background: #FFFFFF; border: 1px solid #E6E1D9; border-radius: 18px; box-shadow: 0 18px 40px rgba(28,27,25,0.16); padding: 8px; z-index: 30; display: flex; flex-direction: column; gap: 2px; text-align: left;">
+                <sc-for list="{{searchResults}}" as="r" hint-placeholder-count="3">
+                  <a href="{{r.href}}" role="option" onClick="{{r.open}}" style="display: flex; align-items: center; gap: 12px; padding: 8px; border-radius: 12px; text-decoration: none; color: #1C1B19;" class="hc-sr"><img src="{{r.img}}" alt="" style="width: 52px; height: 52px; border-radius: 10px; object-fit: cover; display: block; flex: 0 0 auto; background: #F4F2EF;"><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0;"><span style="font-weight: 600; font-size: 14px;">{{r.name}}</span><span style="font-size: 13px; color: #6B655E;">{{r.sub}} · {{r.price}}</span></span></a>
+                </sc-for>
+                <sc-if value="{{searchEmpty}}" hint-placeholder-val="{{false}}"><span style="padding: 14px 10px; font-size: 14px; color: #55504A;">No matches for "{{searchQ}}". Try "hoodie", "necklace" or "towel".</span></sc-if>
+                <a href="shop.html" style="padding: 10px; font-size: 14px; font-weight: 600; color: #1C1B19;">See all products</a>
+              </div>
+            </sc-if>
+          </form>
+          <button type="button" class="hc-stoggle hc-hbtn" aria-label="Search" aria-expanded="false" onClick="{{openSearch}}" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; color: #1C1B19; cursor: pointer; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; position: relative; {{stoggleStyle}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg></button>
+          <a href="visit.html" class="hc-acct hc-hbtn" aria-label="Sign in" title="Sign in" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; color: #1C1B19; cursor: pointer; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; position: relative; text-decoration: none;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"></circle><path d="M4.5 20c1.3-3.6 4.2-5.4 7.5-5.4s6.2 1.8 7.5 5.4"></path></svg></a>
+          <button type="button" class="hc-icon {{bumpCls}}" aria-label="Open bag and saved items, {{bagCount}} in bag" onClick="{{openBag}}" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; color: #1C1B19; cursor: pointer; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; position: relative;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"></path><path d="M9 8a3 3 0 0 1 6 0"></path></svg><span style="position: absolute; top: 4px; right: 2px; min-width: 18px; height: 18px; padding: 0 4px; box-sizing: border-box; border-radius: 9px; background: #1C1B19; color: #FFFFFF; font-size: 10px; font-weight: 700; line-height: 1; display: flex; align-items: center; justify-content: center;">{{bagCount}}</span></button>
+        </div>
+              <sc-if value="{{megaOpen}}" hint-placeholder-val="{{false}}">
+          <button type="button" tabindex="-1" aria-label="Close shop menu" onClick="{{closeMega}}" class="hc-megabg" style="position: fixed; inset: 0; z-index: -1; border: 0; background: transparent; cursor: default;"></button>
+          <div class="hc-mega" style="position: absolute; left: 0; right: 0; top: calc(100% - 1px); background: #FFFFFF; border-top: 0; border-bottom: 1px solid #E6E1D9; box-shadow: 0 24px 40px rgba(28,27,25,0.12); padding: 34px max(28px, calc(50vw - 632px)) 26px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 28px; text-align: left;">
+            <sc-for list="{{megaCols}}" as="col" hint-placeholder-count="5">
+              <div style="display: flex; flex-direction: column; gap: 2px;">
+                <span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 22px; margin-bottom: 8px;">{{col.title}}</span>
+                <sc-for list="{{col.items}}" as="it" hint-placeholder-count="4">
+                  <a href="{{it.href}}" onClick="{{it.pick}}" class="hc-megalink" style="text-decoration: none; color: #1C1B19; font-size: 15px; padding: 7px 0;">{{it.label}}</a>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </header>
+    <section style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); margin-top: -22px; width: 100vw; box-sizing: border-box; background: #FFFFFF; padding: 32px max(32px, calc(50vw - 632px)) 6px;">
+      <nav aria-label="Breadcrumb" style="font-size: 14px; color: #6B655E; margin-bottom: 28px;"><a href="index.html" style="color: #6B655E;">Home</a> / <a href="shop.html" style="color: #6B655E;">Shop</a> / <span style="color: #1C1B19;">Design your own</span></nav>
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px;">
+        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 640px;">
+          <span style="font-size: 15px; color: #45413B;"><span aria-hidden="true" style="color: #1C1B19; letter-spacing: 2px;">★★★★★</span> 4.9 · 1,200+ made this year</span>
+          <h1 style="margin: 0; font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-weight: 400; font-size: clamp(34px, 3.8vw, 48px); line-height: 1.05;">Design your own chenille sweatshirt</h1>
+        </div>
+      </div>
+    </section>
+    <section aria-label="Ideas for your design" class="hc-ideas" style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); width: 100vw; overflow: hidden; margin-top: -10px; margin-bottom: -14px; padding: 10px 0 28px;">
+      <div class="hc-ideas-track" style="display: flex; gap: 16px; width: max-content; padding-left: max(32px, calc(50vw - 632px));">
+        <div style="position: relative; overflow: hidden; flex: 0 0 400px; box-sizing: border-box; background: #FCEBDC; border-radius: 22px; padding: 14px; display: flex; align-items: center; gap: 18px; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 2px 8px rgba(28,27,25,0.05), 0 12px 30px rgba(28,27,25,0.09);"><img src="images/376e7d6fba3897e46b0cf3517e8fa638.jpg" alt="" aria-hidden="true" style="position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px); object-fit: cover; filter: blur(26px) saturate(1.2); opacity: 0.55;"><span aria-hidden="true" style="position: absolute; inset: 0; background: rgba(252,235,220,0.55);"></span><img src="images/376e7d6fba3897e46b0cf3517e8fa638.jpg" alt="Bridesmaids in matching dresses" style="position: relative; flex: 0 0 132px; width: 132px; height: 132px; border-radius: 16px; object-fit: cover; object-position: center 40%; display: block; border: 3px solid rgba(255,255,255,0.9); box-sizing: border-box; box-shadow: 0 8px 20px rgba(28,27,25,0.14);"><span style="position: relative; display: flex; flex-direction: column; gap: 8px; padding-right: 8px;"><span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 24px; line-height: 1.1;">Bridal parties</span><span style="color: #45413B; line-height: 1.55; font-size: 15px;">Matching crews for the whole squad, with each name on the back.</span></span></div>
+        <div style="position: relative; overflow: hidden; flex: 0 0 400px; box-sizing: border-box; background: #E4F0F2; border-radius: 22px; padding: 14px; display: flex; align-items: center; gap: 18px; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 2px 8px rgba(28,27,25,0.05), 0 12px 30px rgba(28,27,25,0.09);"><img src="images/768ef9a33afa850af8f14f5673e24eab.jpg" alt="" aria-hidden="true" style="position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px); object-fit: cover; filter: blur(26px) saturate(1.2); opacity: 0.55;"><span aria-hidden="true" style="position: absolute; inset: 0; background: rgba(228,240,242,0.55);"></span><img src="images/768ef9a33afa850af8f14f5673e24eab.jpg" alt="Friends in hoodies on a truck at sunset" style="position: relative; flex: 0 0 132px; width: 132px; height: 132px; border-radius: 16px; object-fit: cover; object-position: center 30%; display: block; border: 3px solid rgba(255,255,255,0.9); box-sizing: border-box; box-shadow: 0 8px 20px rgba(28,27,25,0.14);"><span style="position: relative; display: flex; flex-direction: column; gap: 8px; padding-right: 8px;"><span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 24px; line-height: 1.1;">Teams and clubs</span><span style="color: #45413B; line-height: 1.55; font-size: 15px;">Order 10 or more and save 15%. We send a proof first.</span></span></div>
+        <div style="position: relative; overflow: hidden; flex: 0 0 400px; box-sizing: border-box; background: #F7EBC8; border-radius: 22px; padding: 14px; display: flex; align-items: center; gap: 18px; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 2px 8px rgba(28,27,25,0.05), 0 12px 30px rgba(28,27,25,0.09);"><img src="images/d8df95ca4178d69e1af2126ef2ce31fd.jpg" alt="" aria-hidden="true" style="position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px); object-fit: cover; filter: blur(26px) saturate(1.2); opacity: 0.55;"><span aria-hidden="true" style="position: absolute; inset: 0; background: rgba(247,235,200,0.55);"></span><img src="images/d8df95ca4178d69e1af2126ef2ce31fd.jpg" alt="Under the Manhattan Beach pier" style="position: relative; flex: 0 0 132px; width: 132px; height: 132px; border-radius: 16px; object-fit: cover; object-position: center; display: block; border: 3px solid rgba(255,255,255,0.9); box-sizing: border-box; box-shadow: 0 8px 20px rgba(28,27,25,0.14);"><span style="position: relative; display: flex; flex-direction: column; gap: 8px; padding-right: 8px;"><span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 24px; line-height: 1.1;">Your hometown</span><span style="color: #45413B; line-height: 1.55; font-size: 15px;">Manhattan Beach, Venice, Malibu or anywhere you love.</span></span></div>
+        <div style="position: relative; overflow: hidden; flex: 0 0 400px; box-sizing: border-box; background: #FCEBDC; border-radius: 22px; padding: 14px; display: flex; align-items: center; gap: 18px; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 2px 8px rgba(28,27,25,0.05), 0 12px 30px rgba(28,27,25,0.09);"><img src="images/1d18e906df8196fa271444ad05d6ed7a.jpg" alt="" aria-hidden="true" style="position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px); object-fit: cover; filter: blur(26px) saturate(1.2); opacity: 0.55;"><span aria-hidden="true" style="position: absolute; inset: 0; background: rgba(252,235,220,0.55);"></span><img src="images/1d18e906df8196fa271444ad05d6ed7a.jpg" alt="Friends holding pink balloons" style="position: relative; flex: 0 0 132px; width: 132px; height: 132px; border-radius: 16px; object-fit: cover; object-position: center 35%; display: block; border: 3px solid rgba(255,255,255,0.9); box-sizing: border-box; box-shadow: 0 8px 20px rgba(28,27,25,0.14);"><span style="position: relative; display: flex; flex-direction: column; gap: 8px; padding-right: 8px;"><span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 24px; line-height: 1.1;">Birthdays</span><span style="color: #45413B; line-height: 1.55; font-size: 15px;">A name and a year makes a gift they will wear for years.</span></span></div>
+        <div style="position: relative; overflow: hidden; flex: 0 0 400px; box-sizing: border-box; background: #EEE9F6; border-radius: 22px; padding: 14px; display: flex; align-items: center; gap: 18px; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 2px 8px rgba(28,27,25,0.05), 0 12px 30px rgba(28,27,25,0.09);"><img src="images/ea737755bad464b0624432d52cca7955.jpg" alt="" aria-hidden="true" style="position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px); object-fit: cover; filter: blur(26px) saturate(1.2); opacity: 0.55;"><span aria-hidden="true" style="position: absolute; inset: 0; background: rgba(238,233,246,0.55);"></span><img src="images/ea737755bad464b0624432d52cca7955.jpg" alt="Graduate tossing a cap into the sky" style="position: relative; flex: 0 0 132px; width: 132px; height: 132px; border-radius: 16px; object-fit: cover; object-position: center; display: block; border: 3px solid rgba(255,255,255,0.9); box-sizing: border-box; box-shadow: 0 8px 20px rgba(28,27,25,0.14);"><span style="position: relative; display: flex; flex-direction: column; gap: 8px; padding-right: 8px;"><span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 24px; line-height: 1.1;">Grad season</span><span style="color: #45413B; line-height: 1.55; font-size: 15px;">School name and class year in chenille letters.</span></span></div>
+        <div style="position: relative; overflow: hidden; flex: 0 0 400px; box-sizing: border-box; background: #E4F0F2; border-radius: 22px; padding: 14px; display: flex; align-items: center; gap: 18px; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 2px 8px rgba(28,27,25,0.05), 0 12px 30px rgba(28,27,25,0.09);"><img src="images/72d0ca05f40639de870a3d689aa4e818.jpg" alt="" aria-hidden="true" style="position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px); object-fit: cover; filter: blur(26px) saturate(1.2); opacity: 0.55;"><span aria-hidden="true" style="position: absolute; inset: 0; background: rgba(228,240,242,0.55);"></span><img src="images/72d0ca05f40639de870a3d689aa4e818.jpg" alt="Family walking on the beach at sunset" style="position: relative; flex: 0 0 132px; width: 132px; height: 132px; border-radius: 16px; object-fit: cover; object-position: center; display: block; border: 3px solid rgba(255,255,255,0.9); box-sizing: border-box; box-shadow: 0 8px 20px rgba(28,27,25,0.14);"><span style="position: relative; display: flex; flex-direction: column; gap: 8px; padding-right: 8px;"><span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 24px; line-height: 1.1;">Family trips</span><span style="color: #45413B; line-height: 1.55; font-size: 15px;">Matching sweatshirts for the reunion or the beach house.</span></span></div>
+        <div aria-hidden="true" style="position: relative; overflow: hidden; flex: 0 0 400px; box-sizing: border-box; background: #FCEBDC; border-radius: 22px; padding: 14px; display: flex; align-items: center; gap: 18px; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 2px 8px rgba(28,27,25,0.05), 0 12px 30px rgba(28,27,25,0.09);"><img src="images/376e7d6fba3897e46b0cf3517e8fa638.jpg" alt="" aria-hidden="true" style="position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px); object-fit: cover; filter: blur(26px) saturate(1.2); opacity: 0.55;"><span aria-hidden="true" style="position: absolute; inset: 0; background: rgba(252,235,220,0.55);"></span><img src="images/376e7d6fba3897e46b0cf3517e8fa638.jpg" alt="" style="position: relative; flex: 0 0 132px; width: 132px; height: 132px; border-radius: 16px; object-fit: cover; object-position: center 40%; display: block; border: 3px solid rgba(255,255,255,0.9); box-sizing: border-box; box-shadow: 0 8px 20px rgba(28,27,25,0.14);"><span style="position: relative; display: flex; flex-direction: column; gap: 8px; padding-right: 8px;"><span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 24px; line-height: 1.1;">Bridal parties</span><span style="color: #45413B; line-height: 1.55; font-size: 15px;">Matching crews for the whole squad, with each name on the back.</span></span></div>
+        <div aria-hidden="true" style="position: relative; overflow: hidden; flex: 0 0 400px; box-sizing: border-box; background: #E4F0F2; border-radius: 22px; padding: 14px; display: flex; align-items: center; gap: 18px; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 2px 8px rgba(28,27,25,0.05), 0 12px 30px rgba(28,27,25,0.09);"><img src="images/768ef9a33afa850af8f14f5673e24eab.jpg" alt="" aria-hidden="true" style="position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px); object-fit: cover; filter: blur(26px) saturate(1.2); opacity: 0.55;"><span aria-hidden="true" style="position: absolute; inset: 0; background: rgba(228,240,242,0.55);"></span><img src="images/768ef9a33afa850af8f14f5673e24eab.jpg" alt="" style="position: relative; flex: 0 0 132px; width: 132px; height: 132px; border-radius: 16px; object-fit: cover; object-position: center 30%; display: block; border: 3px solid rgba(255,255,255,0.9); box-sizing: border-box; box-shadow: 0 8px 20px rgba(28,27,25,0.14);"><span style="position: relative; display: flex; flex-direction: column; gap: 8px; padding-right: 8px;"><span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 24px; line-height: 1.1;">Teams and clubs</span><span style="color: #45413B; line-height: 1.55; font-size: 15px;">Order 10 or more and save 15%. We send a proof first.</span></span></div>
+        <div aria-hidden="true" style="position: relative; overflow: hidden; flex: 0 0 400px; box-sizing: border-box; background: #F7EBC8; border-radius: 22px; padding: 14px; display: flex; align-items: center; gap: 18px; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 2px 8px rgba(28,27,25,0.05), 0 12px 30px rgba(28,27,25,0.09);"><img src="images/d8df95ca4178d69e1af2126ef2ce31fd.jpg" alt="" aria-hidden="true" style="position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px); object-fit: cover; filter: blur(26px) saturate(1.2); opacity: 0.55;"><span aria-hidden="true" style="position: absolute; inset: 0; background: rgba(247,235,200,0.55);"></span><img src="images/d8df95ca4178d69e1af2126ef2ce31fd.jpg" alt="" style="position: relative; flex: 0 0 132px; width: 132px; height: 132px; border-radius: 16px; object-fit: cover; object-position: center; display: block; border: 3px solid rgba(255,255,255,0.9); box-sizing: border-box; box-shadow: 0 8px 20px rgba(28,27,25,0.14);"><span style="position: relative; display: flex; flex-direction: column; gap: 8px; padding-right: 8px;"><span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 24px; line-height: 1.1;">Your hometown</span><span style="color: #45413B; line-height: 1.55; font-size: 15px;">Manhattan Beach, Venice, Malibu or anywhere you love.</span></span></div>
+        <div aria-hidden="true" style="position: relative; overflow: hidden; flex: 0 0 400px; box-sizing: border-box; background: #FCEBDC; border-radius: 22px; padding: 14px; display: flex; align-items: center; gap: 18px; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 2px 8px rgba(28,27,25,0.05), 0 12px 30px rgba(28,27,25,0.09);"><img src="images/1d18e906df8196fa271444ad05d6ed7a.jpg" alt="" aria-hidden="true" style="position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px); object-fit: cover; filter: blur(26px) saturate(1.2); opacity: 0.55;"><span aria-hidden="true" style="position: absolute; inset: 0; background: rgba(252,235,220,0.55);"></span><img src="images/1d18e906df8196fa271444ad05d6ed7a.jpg" alt="" style="position: relative; flex: 0 0 132px; width: 132px; height: 132px; border-radius: 16px; object-fit: cover; object-position: center 35%; display: block; border: 3px solid rgba(255,255,255,0.9); box-sizing: border-box; box-shadow: 0 8px 20px rgba(28,27,25,0.14);"><span style="position: relative; display: flex; flex-direction: column; gap: 8px; padding-right: 8px;"><span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 24px; line-height: 1.1;">Birthdays</span><span style="color: #45413B; line-height: 1.55; font-size: 15px;">A name and a year makes a gift they will wear for years.</span></span></div>
+        <div aria-hidden="true" style="position: relative; overflow: hidden; flex: 0 0 400px; box-sizing: border-box; background: #EEE9F6; border-radius: 22px; padding: 14px; display: flex; align-items: center; gap: 18px; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 2px 8px rgba(28,27,25,0.05), 0 12px 30px rgba(28,27,25,0.09);"><img src="images/ea737755bad464b0624432d52cca7955.jpg" alt="" aria-hidden="true" style="position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px); object-fit: cover; filter: blur(26px) saturate(1.2); opacity: 0.55;"><span aria-hidden="true" style="position: absolute; inset: 0; background: rgba(238,233,246,0.55);"></span><img src="images/ea737755bad464b0624432d52cca7955.jpg" alt="" style="position: relative; flex: 0 0 132px; width: 132px; height: 132px; border-radius: 16px; object-fit: cover; object-position: center; display: block; border: 3px solid rgba(255,255,255,0.9); box-sizing: border-box; box-shadow: 0 8px 20px rgba(28,27,25,0.14);"><span style="position: relative; display: flex; flex-direction: column; gap: 8px; padding-right: 8px;"><span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 24px; line-height: 1.1;">Grad season</span><span style="color: #45413B; line-height: 1.55; font-size: 15px;">School name and class year in chenille letters.</span></span></div>
+        <div aria-hidden="true" style="position: relative; overflow: hidden; flex: 0 0 400px; box-sizing: border-box; background: #E4F0F2; border-radius: 22px; padding: 14px; display: flex; align-items: center; gap: 18px; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 2px 8px rgba(28,27,25,0.05), 0 12px 30px rgba(28,27,25,0.09);"><img src="images/72d0ca05f40639de870a3d689aa4e818.jpg" alt="" aria-hidden="true" style="position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px); object-fit: cover; filter: blur(26px) saturate(1.2); opacity: 0.55;"><span aria-hidden="true" style="position: absolute; inset: 0; background: rgba(228,240,242,0.55);"></span><img src="images/72d0ca05f40639de870a3d689aa4e818.jpg" alt="" style="position: relative; flex: 0 0 132px; width: 132px; height: 132px; border-radius: 16px; object-fit: cover; object-position: center; display: block; border: 3px solid rgba(255,255,255,0.9); box-sizing: border-box; box-shadow: 0 8px 20px rgba(28,27,25,0.14);"><span style="position: relative; display: flex; flex-direction: column; gap: 8px; padding-right: 8px;"><span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 24px; line-height: 1.1;">Family trips</span><span style="color: #45413B; line-height: 1.55; font-size: 15px;">Matching sweatshirts for the reunion or the beach house.</span></span></div>
+      </div>
+    </section>
+    <p style="margin: 0 0 0 calc(max(32px, calc(50vw - 632px)) - max(28px, calc(50vw - 660px))); font-size: 17px; line-height: 1.6; color: #45413B; max-width: 640px;">Pick your sweatshirt, add your words and see it come to life before we stitch it.</p>
+    <section id="builder" class="hc-two" style="display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 28px; align-items: start; padding-top: 8px;">
+      <div class="hc-sticky" style="position: sticky; top: 18px; background: #FFFFFF; border-radius: 26px; padding: 64px 28px 24px; display: flex; flex-direction: column; align-items: center; gap: 16px; border: 1px solid #ECE8E2; box-shadow: 0 0 0 1px rgba(28,27,25,0.02), 0 2px 8px rgba(28,27,25,0.07), 0 14px 34px rgba(28,27,25,0.10);">
+        <span style="position: absolute; top: 20px; right: 20px; display: flex; align-items: center; gap: 8px; background: #1C1B19; color: #FFFFFF; font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 999px;">#1 Best seller<span aria-hidden="true" style="opacity: 0.5;">·</span><span style="font-weight: 500;">made just for you</span></span>
+        <div class="hc-stage" style="position: relative; width: min(100%, 500px); container-type: inline-size;">
+          <img src="{{garmentImg}}" alt="Preview of your {{colorName}} {{styleName}} with the words {{previewText}}" style="width: 100%; height: auto; display: block;">
+          <div aria-hidden="true" class="hc-drag" onPointerDown="{{dragStart}}" style="position: absolute; left: {{textLeft}}; top: {{textTop}}; transform: translate(-50%, -50%); padding: 1.2cqw 1.6cqw; border-radius: 8px; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; display: flex; flex-direction: column; align-items: center; gap: 0.6cqw; text-align: center; color: {{thread}}; font-family: {{fontFamily}}; font-style: {{fontStyle}}; font-weight: {{fontWeight}}; letter-spacing: {{tracking}}px; text-shadow: {{shadow}}; line-height: 1;">
+            <span style="font-size: {{fontSize}}cqw; white-space: nowrap;">{{line1}}</span>
+            <span style="font-size: {{fontSize2}}cqw; white-space: nowrap;">{{line2}}</span>
+          </div>
+        </div>
+        <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px; border-top: 1px solid #EEEBE6; padding-top: 18px;">
+          <span style="font-size: 14px; color: #55504A; display: flex; align-items: center; gap: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"></path></svg>Drag the words on the sweatshirt to place them</span>
+          <div role="group" aria-label="Quick placement" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; background: #F4F2EF; border-radius: 999px; padding: 4px;">
+            <sc-for list="{{places}}" as="o" hint-placeholder-count="3">
+              <button type="button" aria-pressed="{{o.active}}" onClick="{{o.pick}}" style="min-height: 40px; padding: 0 14px; border: 0; border-radius: 999px; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; {{o.seg}}">{{o.label}}</button>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 18px;">
+            <div role="group" aria-label="Text size" style="display: flex; align-items: center; gap: 8px;"><button type="button" aria-label="Smaller text" onClick="{{sizeDown}}" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid #E6E1D9; background: #FFFFFF; color: #1C1B19; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center;">A−</button><span style="min-width: 44px; text-align: center; font-size: 14px; color: #55504A;">{{sizeLabel}}</span><button type="button" aria-label="Bigger text" onClick="{{sizeUp}}" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid #E6E1D9; background: #FFFFFF; color: #1C1B19; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center;">A+</button></div>
+            <div role="group" aria-label="Move text" style="display: flex; align-items: center; gap: 6px;"><button type="button" aria-label="Move left" onClick="{{moveL}}" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid #E6E1D9; background: #FFFFFF; color: #1C1B19; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center;">←</button><button type="button" aria-label="Move up" onClick="{{moveU}}" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid #E6E1D9; background: #FFFFFF; color: #1C1B19; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center;">↑</button><button type="button" aria-label="Move down" onClick="{{moveD}}" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid #E6E1D9; background: #FFFFFF; color: #1C1B19; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center;">↓</button><button type="button" aria-label="Move right" onClick="{{moveR}}" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid #E6E1D9; background: #FFFFFF; color: #1C1B19; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center;">→</button></div>
+            <button type="button" onClick="{{resetText}}" style="min-height: 40px; border: 0; background: transparent; font: inherit; font-size: 14px; font-weight: 600; color: #1C1B19; cursor: pointer; text-decoration: underline; text-underline-offset: 4px;">Reset</button>
+          </div>
+          <span style="font-size: 13px; color: #6B655E; text-align: center;">Live preview · {{colorName}} {{styleName}}, {{letterName}} lettering · words about {{inches}} in wide</span>
+        </div>
+      </div>
+
+      <div class="hc-steps" style="background: #FFFFFF; border-radius: 26px; padding: 32px; display: flex; flex-direction: column; gap: 26px; border: 1px solid #ECE8E2; box-shadow: 0 0 0 1px rgba(28,27,25,0.02), 0 2px 8px rgba(28,27,25,0.07), 0 14px 34px rgba(28,27,25,0.10);">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #1B6A86;">Step 1 of 5</span><h2 style="margin: 0; font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-weight: 400; font-size: 26px; line-height: 1.1;">Pick a style</h2></div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <sc-for list="{{styles}}" as="o" hint-placeholder-count="2">
+              <button type="button" aria-pressed="{{o.active}}" onClick="{{o.pick}}" style="min-height: 52px; padding: 0 20px; border-radius: 999px; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; {{o.style}}" class="hc-opt"><span>{{o.label}}</span><span style="font-weight: 400;">{{o.price}}</span></button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #1B6A86;">Step 2 of 5</span><h2 style="margin: 0; font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-weight: 400; font-size: 26px; line-height: 1.1;">Choose a color</h2></div>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+            <sc-for list="{{colors}}" as="c" hint-placeholder-count="5">
+              <button type="button" aria-pressed="{{c.active}}" onClick="{{c.pick}}" style="display: flex; flex-direction: column; align-items: center; gap: 6px; border: 0; background: transparent; cursor: pointer; font: inherit; font-size: 13px; color: #1C1B19; padding: 0;"><span style="width: 48px; height: 48px; border-radius: 50%; background: {{c.hex}}; {{c.style}}"></span>{{c.label}}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #1B6A86;">Step 3 of 5</span><h2 style="margin: 0; font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-weight: 400; font-size: 26px; line-height: 1.1;">Add your words</h2></div>
+          <label for="hc-line1" style="font-size: 14px; font-weight: 500; display: flex; justify-content: space-between;"><span>Main word</span><span style="color: #6B655E; font-weight: 400;">{{len1}} / 14</span></label>
+          <input id="hc-line1" type="text" maxlength="14" value="{{line1}}" onInput="{{setLine1}}" style="min-height: 52px; border: 1px solid #E6E1D9; border-radius: 14px; padding: 0 16px; background: #FBFAF8; font: inherit; font-size: 16px; color: #1C1B19;">
+          <label for="hc-line2" style="font-size: 14px; font-weight: 500;">Small line underneath (optional)</label>
+          <input id="hc-line2" type="text" maxlength="22" value="{{line2}}" onInput="{{setLine2}}" placeholder="e.g. Est. 2026 or Bride squad" style="min-height: 52px; border: 1px solid #E6E1D9; border-radius: 14px; padding: 0 16px; background: #FBFAF8; font: inherit; font-size: 16px; color: #1C1B19;">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #1B6A86;">Step 4 of 5</span><h2 style="margin: 0; font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-weight: 400; font-size: 26px; line-height: 1.1;">Lettering and thread</h2></div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+            <sc-for list="{{letterings}}" as="o" hint-placeholder-count="3">
+              <button type="button" aria-pressed="{{o.active}}" onClick="{{o.pick}}" style="min-height: 52px; padding: 0 14px; border-radius: 999px; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; {{o.style}}" class="hc-opt"><span style="font-family: {{o.ff}}; font-style: {{o.fs}}; font-size: 18px;">{{o.label}}</span></button>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+            <span style="font-size: 14px; font-weight: 500; margin-right: 6px;">Thread</span>
+            <sc-for list="{{threads}}" as="c" hint-placeholder-count="4">
+              <button type="button" aria-label="{{c.label}} thread" aria-pressed="{{c.active}}" onClick="{{c.pick}}" style="width: 40px; height: 40px; border-radius: 50%; background: {{c.hex}}; cursor: pointer; {{c.style}}"></button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #1B6A86;">Step 5 of 5</span><h2 style="margin: 0; font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-weight: 400; font-size: 26px; line-height: 1.1;">Size and quantity</h2></div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <sc-for list="{{sizes}}" as="z" hint-placeholder-count="6">
+              <button type="button" aria-pressed="{{z.active}}" onClick="{{z.pick}}" style="min-width: 56px; min-height: 44px; border-radius: 999px; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; {{z.style}}">{{z.label}}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="border-top: 1px solid #EEEBE6; padding-top: 22px; display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; justify-content: space-between; font-size: 15px; color: #55504A;"><span>{{styleName}}</span><span>{{basePrice}}</span></div>
+          <sc-if value="{{hasLine2}}" hint-placeholder-val="{{false}}"><div style="display: flex; justify-content: space-between; font-size: 15px; color: #55504A;"><span>Second line</span><span>$4.00</span></div></sc-if>
+          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 15px; color: #55504A;"><span>Quantity</span><div style="display: flex; align-items: center; gap: 4px; background: #F4F2EF; border-radius: 999px; padding: 4px;"><button type="button" aria-label="Fewer" onClick="{{bQtyDown}}" style="width: 40px; height: 40px; border-radius: 50%; border: 0; background: #FFFFFF; cursor: pointer; font: inherit; font-size: 18px; color: #1C1B19;">−</button><span style="min-width: 28px; text-align: center; font-weight: 600; color: #1C1B19;">{{bQty}}</span><button type="button" aria-label="More" onClick="{{bQtyUp}}" style="width: 40px; height: 40px; border-radius: 50%; border: 0; background: #FFFFFF; cursor: pointer; font: inherit; font-size: 18px; color: #1C1B19;">+</button></div></div>
+          <span style="font-size: 13px; color: #6B655E;">Ordering 10 or more? Teams and bridal parties save 15%.</span>
+          <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 18px;"><span>Total</span><span>{{totalPrice}}</span></div>
+          <button type="button" onClick="{{addCustom}}" aria-disabled="{{addDisabled}}" style="min-height: 56px; border: 0; border-radius: 999px; font: inherit; font-weight: 600; font-size: 16px; transition: background-color .2s ease, color .2s ease; {{addStyle}}">Add to bag</button>
+          <button type="button" role="checkbox" aria-checked="{{proofAttr}}" onClick="{{toggleProof}}" style="display: flex; align-items: flex-start; gap: 12px; border: 0; background: transparent; padding: 0; font: inherit; font-size: 14px; line-height: 1.5; color: #1C1B19; cursor: pointer; text-align: left;"><span aria-hidden="true" style="flex: 0 0 22px; width: 22px; min-width: 22px; height: 22px; box-sizing: border-box; border-radius: 6px; line-height: 1; display: flex; align-items: center; justify-content: center; font-size: 14px; {{proofBox}}">{{proofMark}}</span><span>I checked the spelling and placement. Custom pieces are stitched exactly as shown.</span></button>
+          <sc-if value="{{proofErr}}" hint-placeholder-val="{{false}}"><span role="alert" style="font-size: 14px; color: #B3261E;">Please check the box to confirm your design before adding it to your bag.</span></sc-if>
+          <span style="text-align: center; font-size: 14px; color: #6B655E;">Made to order in 5 to 7 days · Custom pieces are final sale</span>
+        </div>
+      </div>
+    </section>
+    <sc-if value="{{miniOn}}" hint-placeholder-val="{{false}}">
+      <button type="button" class="hc-mini-prev" onClick="{{toPreview}}" aria-label="Back to the full preview" style="position: fixed; right: 16px; bottom: 16px; z-index: 30; width: 128px; padding: 8px 8px 8px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #ECE8E2; border-radius: 18px; box-shadow: 0 10px 28px rgba(28,27,25,0.18); cursor: pointer; font: inherit; flex-direction: column; align-items: center; gap: 4px;">
+        <div style="position: relative; width: 100%; container-type: inline-size;">
+          <img src="{{garmentImg}}" alt="" style="width: 100%; height: auto; display: block;">
+          <div aria-hidden="true" style="position: absolute; left: {{textLeft}}; top: {{textTop}}; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 0.6cqw; text-align: center; color: {{thread}}; font-family: {{fontFamily}}; font-style: {{fontStyle}}; font-weight: {{fontWeight}}; letter-spacing: {{trackingMini}}px; text-shadow: {{shadow}}; line-height: 1; pointer-events: none;">
+            <span style="font-size: {{fontSize}}cqw; white-space: nowrap;">{{line1}}</span>
+            <span style="font-size: {{fontSize2}}cqw; white-space: nowrap;">{{line2}}</span>
+          </div>
+        </div>
+        <span style="font-size: 11px; font-weight: 600; color: #1B6A86;">Live preview ↑</span>
+      </button>
+    </sc-if>
+
+    <section aria-label="Stay connected" class="hc-trio" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr) minmax(0, 1fr); gap: 20px; padding-bottom: 28px; padding-top: 6px;">
+      <a href="#top" class="hc-trio-card" style="position: relative; overflow: hidden; text-decoration: none; color: #1C1B19; border-radius: 28px; min-height: 320px; display: flex; align-items: flex-end; padding: 16px; box-sizing: border-box; background: #EEE9F6; box-shadow: 0 2px 8px rgba(28,27,25,0.05), 0 12px 30px rgba(28,27,25,0.08);">
+        <img src="images/75f0c160084514042853fec3a4bd7581.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block;">
+        <span style="position: relative; width: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-radius: 18px; background: rgba(255,255,255,0.6); backdrop-filter: blur(20px) saturate(1.4); -webkit-backdrop-filter: blur(20px) saturate(1.4); border: 1px solid rgba(255,255,255,0.7);">
+          <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+            <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #5B4A8A;">Follow along</span>
+            <span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.15;">@heavenlycouture</span>
+          </span>
+          <span aria-hidden="true" style="flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%; background: #5B4A8A; color: #FFFFFF; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r="0.9" fill="currentColor" stroke="none"></circle></svg></span>
+        </span>
+      </a>
+      <div style="position: relative; overflow: hidden; border-radius: 28px; min-height: 320px; display: flex; align-items: flex-end; box-shadow: 0 2px 8px rgba(28,27,25,0.06), 0 14px 34px rgba(28,27,25,0.10);">
+        <img src="images/cf72144de8547ea891c65def7591980a.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;">
+        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,18,16,0.05) 0%, rgba(20,18,16,0.6) 100%);"></div>
+        <div style="position: relative; padding: 32px; display: flex; flex-direction: column; gap: 12px; color: #FFFFFF; width: 100%; box-sizing: border-box;">
+          <h2 style="margin: 0; font-family: 'Libre Caslon Display', Georgia, serif; font-weight: 400; font-size: clamp(28px, 2.6vw, 38px); line-height: 1.05;">Stay in the loop for <span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic;">sunny offers</span></h2>
+          <p style="margin: 0; font-size: 15px; color: #EDE8E0; max-width: 420px;">New drops, beach-day picks and boutique events, a couple of times a month.</p>
+          <form style="display: flex; gap: 6px; background: #FFFFFF; border-radius: 999px; padding: 6px; width: min(100%, 420px); box-sizing: border-box;">
+            <label for="fv-email" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Email address</label>
+            <input id="fv-email" type="email" placeholder="Enter your email" style="flex: 1; min-width: 0; border: 0; background: transparent; padding: 10px 14px; font: inherit; font-size: 14px; color: #1C1B19; outline: none;">
+            <button type="button" style="border: 0; border-radius: 999px; background: #1B6A86; color: #FFFFFF; font: inherit; font-weight: 600; font-size: 14px; padding: 0 20px; cursor: pointer; min-height: 44px;">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <a href="visit.html" class="hc-trio-card" style="position: relative; overflow: hidden; text-decoration: none; color: #1C1B19; border-radius: 28px; background: #E4F0F2; padding: 14px; display: flex; min-height: 320px; box-sizing: border-box; box-shadow: 0 2px 8px rgba(28,27,25,0.05), 0 12px 30px rgba(28,27,25,0.08);">
+        <img src="images/2cfb01ca4a756630b2204812e57539fb.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;">
+        <span style="position: relative; flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; padding: 22px; border-radius: 20px; background: rgba(228,240,242,0.62); backdrop-filter: blur(20px) saturate(1.4); -webkit-backdrop-filter: blur(20px) saturate(1.4); border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 8px 24px rgba(28,27,25,0.10);">
+        <span style="display: flex; flex-direction: column; gap: 10px;">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #1B6A86;">Visit us</span>
+          <span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 30px; line-height: 1.1;">Come say hi at the boutique</span>
+          <span style="font-size: 15px; line-height: 1.55; color: #45413B;">221 Manhattan Beach Blvd, Manhattan Beach. Open daily 10 to 7, with free pickup for online orders.</span>
+        </span>
+        <span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px;">Get directions <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+        </span>
+      </a>
+    </section>
+
+    <footer style="background: #FFFFFF; border-radius: 0; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); margin-bottom: -40px; width: 100vw; box-sizing: border-box; border-top: 1px solid #E6E1D9; padding: 44px max(32px, calc(50vw - 632px)); display: grid; grid-template-columns: minmax(220px, 1.5fr) repeat(3, minmax(130px, 1fr)); gap: 24px 32px; font-size: 14px;" class="hc-foot">
+      <div style="display: flex; flex-direction: column; gap: 12px;"><img src="images/01ed9a5cb67c9193ea8dd6dd5310208e.png" alt="Heavenly Couture" style="width: 180px; height: auto; display: block;"><span style="color: #55504A;">221 Manhattan Beach Blvd, Manhattan Beach, CA</span><span style="color: #55504A;">@heavenlycouture</span></div>
+      <div style="display: flex; flex-direction: column; gap: 8px;"><strong style="font-weight: 600;">Customer service</strong><a href="visit.html">Help &amp; contact</a><a href="visit.html">Orders &amp; shipping</a><a href="visit.html">Store pickup</a></div>
+      <div style="display: flex; flex-direction: column; gap: 8px;"><strong style="font-weight: 600;">About us</strong><a href="visit.html#story">Our story</a><a href="visit.html">Boutiques</a><a href="design.html">Custom orders</a></div>
+      <div style="display: flex; flex-direction: column; gap: 8px;"><strong style="font-weight: 600;">Legal</strong><a href="#help">Terms</a><a href="#help">Privacy</a><a href="#help">Cookies</a></div>
+    </footer>
+  </div>
+
+  <sc-if value="{{menuOpen}}" hint-placeholder-val="{{false}}">
+    <div style="position: fixed; inset: 0; z-index: 60; display: flex;">
+      <button type="button" aria-label="Close menu" onClick="{{closeMenu}}" style="position: absolute; inset: 0; border: 0; background: rgba(28,27,25,0.45); cursor: pointer;"></button>
+      <nav aria-label="Menu" style="position: relative; width: min(86vw, 360px); height: 100%; background: #FFFFFF; padding: 20px 22px 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px; overflow-y: auto; font-family: 'Inter', system-ui, sans-serif; color: #1C1B19;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <img src="images/01ed9a5cb67c9193ea8dd6dd5310208e.png" alt="Heavenly Couture" style="width: 150px; height: auto; display: block;">
+          <button type="button" aria-label="Close menu" onClick="{{closeMenu}}" style="width: 44px; height: 44px; border-radius: 50%; border: 1px solid #BDB6AB; background: #FFFFFF; color: #1C1B19; cursor: pointer; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+          <a href="index.html" onClick="{{closeMenu}}" style="text-decoration: none; padding: 14px 0; border-bottom: 1px solid #EEEBE6; font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 26px; color: #1C1B19;">Home</a>
+          <div style="border-bottom: 1px solid #EEEBE6;">
+            <button type="button" aria-expanded="{{shopAttr}}" onClick="{{toggleShop}}" style="width: 100%; display: flex; justify-content: space-between; align-items: center; border: 0; background: transparent; padding: 14px 0; cursor: pointer; font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 26px; color: #1C1B19;"><span>Shop</span><span aria-hidden="true" style="font-family: 'Inter', system-ui, sans-serif; font-style: normal; font-size: 22px;">{{shopSign}}</span></button>
+            <sc-if value="{{shopOpen}}" hint-placeholder-val="{{true}}">
+              <div style="display: flex; flex-direction: column; padding: 0 0 12px;">
+            <a href="shop.html" onClick="{{closeMenu}}" style="text-decoration: none; padding: 11px 0 11px 16px; font-size: 16px; color: #1C1B19; text-align: left;">All items</a>
+            <a href="shop.html" onClick="{{closeMenu}}" style="text-decoration: none; padding: 11px 0 11px 16px; font-size: 16px; color: #1C1B19; text-align: left;">All clothing</a>
+            <a href="shop.html" onClick="{{closeMenu}}" style="text-decoration: none; padding: 11px 0 11px 16px; font-size: 16px; color: #1C1B19; text-align: left;">Women</a>
+            <a href="shop.html" onClick="{{closeMenu}}" style="text-decoration: none; padding: 11px 0 11px 16px; font-size: 16px; color: #1C1B19; text-align: left;">Men</a>
+            <a href="shop.html" onClick="{{closeMenu}}" style="text-decoration: none; padding: 11px 0 11px 16px; font-size: 16px; color: #1C1B19; text-align: left;">Jewelry</a>
+            <a href="shop.html" onClick="{{closeMenu}}" style="text-decoration: none; padding: 11px 0 11px 16px; font-size: 16px; color: #1C1B19; text-align: left;">Beach Shop</a>
+            <a href="design.html" onClick="{{closeMenu}}" style="text-decoration: none; padding: 11px 0 11px 16px; font-size: 16px; color: #1C1B19; text-align: left;">Custom sweatshirts</a>
+              </div>
+            </sc-if>
+          </div>
+          <a href="design.html" onClick="{{closeMenu}}" style="text-decoration: none; padding: 14px 0; border-bottom: 1px solid #EEEBE6; font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 26px; color: #1C1B19;">Design your own</a>
+          <a href="visit.html" onClick="{{closeMenu}}" style="text-decoration: none; padding: 14px 0; border-bottom: 1px solid #EEEBE6; font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 26px; color: #1C1B19;">Visit us</a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px; font-size: 15px; margin-top: auto;">
+          <form role="search" onSubmit="{{noSubmit}}" style="position: relative; display: flex; align-items: center; gap: 8px; border: 1px solid #BDB6AB; border-radius: 999px; padding: 0 16px; background: #FFFFFF;">
+            <label for="fv-msearch" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Search</label>
+            <input id="fv-msearch" type="search" autocomplete="off" placeholder="Search the shop" value="{{searchQ}}" onInput="{{setQ}}" style="flex: 1; border: 0; background: transparent; padding: 14px 0; font: inherit; font-size: 16px; color: #1C1B19;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C1B19" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+          <sc-if value="{{searchOpen}}" hint-placeholder-val="{{false}}">
+                <div role="listbox" aria-label="Search results" style="position: absolute; bottom: calc(100% + 8px); left: 0; right: 0; background: #FFFFFF; border: 1px solid #E6E1D9; border-radius: 18px; box-shadow: 0 18px 40px rgba(28,27,25,0.16); padding: 8px; z-index: 30; display: flex; flex-direction: column; gap: 2px; text-align: left;">
+                  <sc-for list="{{searchResults}}" as="r" hint-placeholder-count="3">
+                    <a href="{{r.href}}" role="option" onClick="{{r.open}}" style="display: flex; align-items: center; gap: 12px; padding: 8px; border-radius: 12px; text-decoration: none; color: #1C1B19;" class="hc-sr"><img src="{{r.img}}" alt="" style="width: 52px; height: 52px; border-radius: 10px; object-fit: cover; display: block; flex: 0 0 auto; background: #F4F2EF;"><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0;"><span style="font-weight: 600; font-size: 14px;">{{r.name}}</span><span style="font-size: 13px; color: #6B655E;">{{r.sub}} · {{r.price}}</span></span></a>
+                  </sc-for>
+                  <sc-if value="{{searchEmpty}}" hint-placeholder-val="{{false}}"><span style="padding: 14px 10px; font-size: 14px; color: #55504A;">No matches for "{{searchQ}}". Try "hoodie", "necklace" or "towel".</span></sc-if>
+                  <a href="shop.html" style="padding: 10px; font-size: 14px; font-weight: 600; color: #1C1B19;">See all products</a>
+                </div>
+              </sc-if></form>
+          <a href="visit.html" onClick="{{closeMenu}}" style="font-weight: 600;">Sign in or create account</a>
+          <button type="button" onClick="{{openSaved}}" style="border: 0; background: transparent; padding: 0; font: inherit; font-size: 15px; color: #1C1B19; cursor: pointer; text-align: left; min-height: 32px;">Saved items ({{savedCount}})</button>
+          <span style="color: #55504A;">Free pickup in store · Free shipping over $50</span>
+        </div>
+      </nav>
+    </div>
+  </sc-if>
+  <sc-if value="{{toastOn}}" hint-placeholder-val="{{false}}">
+    <div role="status" style="position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 70; background: #1C1B19; color: #FFFFFF; border-radius: 999px; padding: 10px 10px 10px 20px; display: flex; align-items: center; gap: 14px; box-shadow: 0 14px 30px rgba(28,27,25,0.3); font-family: 'Inter', system-ui, sans-serif; font-size: 15px; animation: hc-toast .35s ease both; white-space: nowrap;">
+      <span>Added to your bag</span>
+      <button type="button" onClick="{{openBag}}" style="min-height: 40px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B19; font: inherit; font-size: 14px; font-weight: 600; padding: 0 16px; cursor: pointer;">View bag</button>
+    </div>
+  </sc-if>
+  <sc-if value="{{bagOpen}}" hint-placeholder-val="{{false}}">
+    <div class="hc-bagwrap {{bagOutCls}}" style="position: fixed; inset: 0; z-index: 50; display: flex; justify-content: flex-end;">
+      <button type="button" aria-label="Close bag" onClick="{{closeBag}}" class="hc-bagbg" style="position: absolute; inset: 0; border: 0; background: rgba(28, 27, 25, 0.4); cursor: pointer;"></button>
+      <aside aria-label="My bag" class="hc-bagpanel" style="position: relative; width: min(100%, 440px); height: 100%; overflow-y: auto; background: #F4F2EF; box-sizing: border-box; padding: 22px 20px 28px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <button type="button" aria-label="Close bag" onClick="{{closeBag}}" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: #FFFFFF; color: #1C1B19; cursor: pointer; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+          <h2 style="margin: 0; font-family: 'Libre Caslon Display', Georgia, serif; font-weight: 400; font-size: 28px;">My bag</h2>
+          <span style="width: 44px;" aria-hidden="true"></span>
+        </div>
+        <div role="tablist" aria-label="Bag or saved" style="display: flex; gap: 6px; background: #FFFFFF; border-radius: 999px; padding: 4px;">
+          <button type="button" role="tab" aria-selected="{{bagTabAttr}}" onClick="{{showBagTab}}" style="min-height: 44px; flex: 1; border: 0; border-radius: 999px; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; {{bagTabStyle}}">Bag ({{bagCount}})</button>
+          <button type="button" role="tab" aria-selected="{{savedTabAttr}}" onClick="{{showSavedTab}}" style="min-height: 44px; flex: 1; border: 0; border-radius: 999px; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; {{savedTabStyle}}">Saved ({{savedCount}})</button>
+        </div>
+        <sc-if value="{{tabBag}}" hint-placeholder-val="{{true}}">
+        <div role="status" aria-live="polite" style="background: #FFFFFF; border-radius: 18px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: #1C1B19;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1C1B19" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3z"></path><path d="M14 10h4l3 3v3h-7z"></path><circle cx="7" cy="17.5" r="1.8"></circle><circle cx="17.5" cy="17.5" r="1.8"></circle></svg><span>{{shipMsg}}</span></div>
+          <div aria-hidden="true" style="height: 8px; border-radius: 999px; background: #EDE7DD; overflow: hidden;"><div style="height: 100%; width: {{shipPct}}; background: #1C1B19; border-radius: 999px; transition: width .4s ease;"></div></div>
+        </div>
+        <sc-if value="{{bagEmpty}}" hint-placeholder-val="{{false}}">
+          <div style="background: #FFFFFF; border-radius: 22px; padding: 40px 24px; text-align: center; display: flex; flex-direction: column; gap: 10px;">
+            <span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 24px;">Your bag is empty</span>
+            <span style="font-size: 14px; color: #6B655E;">Tap the bag on any product to add it.</span>
+          </div>
+        </sc-if>
+        <sc-for list="{{lines}}" as="l" hint-placeholder-count="2">
+          <div style="background: #FFFFFF; border-radius: 22px; padding: 12px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; gap: 12px;">
+              <sc-if value="{{l.hasImg}}" hint-placeholder-val="{{true}}">
+                <img src="{{l.img}}" alt="" style="width: 92px; height: 92px; border-radius: 16px; object-fit: cover; display: block; flex-shrink: 0;">
+              </sc-if>
+              <sc-if value="{{l.isPh}}" hint-placeholder-val="{{false}}">
+                <div style="width: 92px; height: 92px; border-radius: 16px; background: {{l.tint}}; flex-shrink: 0;"></div>
+              </sc-if>
+              <div style="display: flex; flex-direction: column; gap: 6px; flex-grow: 1; min-width: 0;">
+                <span style="font-weight: 600; font-size: 15px; line-height: 1.3;">{{l.name}}</span>
+                <span style="font-size: 13px; color: #6B655E;">{{l.variant}}</span>
+                <span style="font-weight: 600; font-size: 16px; margin-top: auto;">{{l.lineTotal}}</span>
+              </div>
+              <button type="button" aria-label="Remove {{l.name}}" onClick="{{l.remove}}" style="align-self: flex-start; width: 36px; height: 36px; border-radius: 50%; border: 0; background: transparent; color: #6B655E; cursor: pointer; display: flex; align-items: center; justify-content: center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: flex-end; border-top: 1px solid #EEEBE6; padding-top: 10px;">
+              <div style="display: flex; align-items: center; gap: 4px; background: #F4F2EF; border-radius: 999px; padding: 2px;">
+                <button type="button" aria-label="Decrease quantity" onClick="{{l.dec}}" style="width: 36px; height: 36px; border-radius: 50%; border: 0; background: #FFFFFF; cursor: pointer; font: inherit; font-size: 18px; color: #1C1B19;">−</button>
+                <span style="min-width: 24px; text-align: center; font-weight: 600; font-size: 14px;">{{l.qty}}</span>
+                <button type="button" aria-label="Increase quantity" onClick="{{l.inc}}" style="width: 36px; height: 36px; border-radius: 50%; border: 0; background: #FFFFFF; cursor: pointer; font: inherit; font-size: 18px; color: #1C1B19;">+</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+        <div style="background: #FFFFFF; border-radius: 22px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+          <span style="font-weight: 600; font-size: 16px;">Order summary</span>
+          <div style="display: flex; justify-content: space-between;"><span style="color: #6B655E;">Subtotal</span><span>{{subtotal}}</span></div>
+          <div style="display: flex; justify-content: space-between;"><span style="color: #6B655E;">Shipping</span><span>{{shipping}}</span></div>
+          <div style="border-top: 1px solid #EEEBE6; padding-top: 10px; display: flex; justify-content: space-between; font-weight: 600; font-size: 16px;"><span>Total</span><span>{{total}}</span></div>
+        </div>
+        <a href="checkout.html" style="display: flex; align-items: center; justify-content: center; text-decoration: none; border-radius: 999px; background: #1C1B19; color: #FFFFFF; font-weight: 600; font-size: 16px; padding: 18px; min-height: 56px; box-sizing: border-box;">Checkout</a>
+        <span style="text-align: center; font-size: 13px; color: #6B655E;">Or pick up free at a California boutique</span>
+        </sc-if>
+        <sc-if value="{{tabSaved}}" hint-placeholder-val="{{false}}">
+          <sc-if value="{{savedEmpty}}" hint-placeholder-val="{{false}}">
+            <div style="background: #FFFFFF; border-radius: 22px; padding: 40px 24px; text-align: center; display: flex; flex-direction: column; gap: 10px;">
+              <span style="font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-size: 24px;">Nothing saved yet</span>
+              <span style="font-size: 14px; color: #6B655E;">Tap the heart on any product to save it here.</span>
+            </div>
+          </sc-if>
+          <sc-for list="{{savedLines}}" as="v" hint-placeholder-count="2">
+            <div style="background: #FFFFFF; border-radius: 22px; padding: 12px; display: flex; gap: 12px; align-items: center;">
+              <a href="{{v.href}}" onClick="{{v.open}}" aria-label="View {{v.name}}" class="hc-savedimg" style="flex-shrink: 0; display: block; border-radius: 16px; overflow: hidden;"><img src="{{v.img}}" alt="" style="width: 92px; height: 92px; border-radius: 16px; object-fit: cover; display: block;"></a>
+              <div style="display: flex; flex-direction: column; gap: 6px; flex-grow: 1; min-width: 0;">
+                <a href="{{v.href}}" onClick="{{v.open}}" class="hc-savedname" style="font-weight: 600; font-size: 15px; line-height: 1.3; color: #1C1B19; text-decoration: none;">{{v.name}}</a>
+                <span style="font-size: 15px;">{{v.price}}</span>
+                <button type="button" onClick="{{v.move}}" style="align-self: flex-start; min-height: 40px; border: 0; border-radius: 999px; background: #1C1B19; color: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600; padding: 0 16px; cursor: pointer;">Move to bag</button>
+              </div>
+              <button type="button" aria-label="Remove {{v.name}} from saved" onClick="{{v.remove}}" style="align-self: flex-start; width: 36px; height: 36px; border-radius: 50%; border: 0; background: transparent; color: #C2452D; cursor: pointer; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="#C2452D" stroke="#C2452D" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></button>
+            </div>
+          </sc-for>
+        </sc-if>
+      </aside>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2000}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { menuOpen: false, shopOpen: false, slide: 0, cat: 'All', sub: 'All', bagOpen: false, bump: 0, toast: false, q: '', added: {}, bagTab: 'bag', saved: [], cart: [], bStyle: 'crew', bColor: 2, bLetter: 'varsity', bThread: 0, bSize: 'M', line1: 'Manhattan', line2: 'Beach', place: 'center', nudge: 0, scale: 100, tx: null, ty: null, bQty: 1, proof: false, proofErr: false };
+  }
+  componentDidMount() {
+    if (typeof window === 'undefined') return;
+    this.miniTick = setInterval(() => {
+      const stage = document.querySelector('#builder .hc-stage');
+      if (!stage) return;
+      const r = stage.getBoundingClientRect();
+      const out = r.bottom < r.height * 0.35;
+      if (out !== !!this.state.miniOn) this.setState({ miniOn: out });
+    }, 200);
+  }
+  scrollPop(dir, loop) {
+    const el = this.popEl;
+    if (!el) return;
+    const step = 290;
+    const max = el.scrollWidth - el.clientWidth;
+    if (loop && dir > 0 && el.scrollLeft >= max - 4) { el.scrollTo({ left: 0, behavior: 'smooth' }); return; }
+    el.scrollBy({ left: dir * step, behavior: 'smooth' });
+  }
+  componentWillUnmount() {
+    clearInterval(this.miniTick);
+    clearInterval(this.timer);
+    clearInterval(this.popTimer);
+  }
+  renderVals() {
+    const SAVED_OPEN = (p) => () => {};
+    const P = [
+      { id: 'necklace', cat: 'Jewelry', sub: 'Necklaces', name: 'Clover Station Necklace', price: 15.99, img: 'images/25671721fa1649ff575138ecfc58ffb4.jpg', sw: [['#1B1B1B', 'Onyx'], ['#1E6B4A', 'Malachite']] },
+      { id: 'mbhoodie', who: ['Women'], cat: 'Clothing', sub: 'Hoodies', name: 'Manhattan Beach Chenille Hoodie', price: 15.99, img: 'images/3f0f99d28f8ad6096caf9d2806769e37.jpg', sw: [['#F3E6A8', 'Butter'], ['#1F2A4A', 'Navy']] },
+      { id: 'bracelet', cat: 'Jewelry', sub: 'Bracelets', name: 'Clover Charm Bracelet', price: 12.99, img: 'images/3df7ab4db6b67c9d9dfcdc22a4410ae6.jpg', sw: [['#1F3FA8', 'Lapis'], ['#EFEAE0', 'Mother-of-pearl']] },
+      { id: 'towel', cat: 'Beach', sub: 'Towels', name: 'Turkish Cotton Beach Towel', price: 14.99, img: 'images/5f9ef0c0b9855ba209da5e4cc77cc4a6.jpg', sw: [['#F2C94C', 'Sunshine'], ['#C3AEE6', 'Lilac']] },
+      { id: 'mbcrew', who: ['Women'], cat: 'Clothing', sub: 'Crews', name: 'Manhattan Beach Chenille Crew', price: 15.99, img: 'images/af29c7e14c04ac14ca67ea3a165105df.jpg', sw: [['#B9A3DB', 'Lavender']] },
+      { id: 'hoops', cat: 'Jewelry', sub: 'Earrings', name: 'Twisted Gold Hoops', price: 9.99, img: 'images/70d73b76a6dad1a4e83f943295f6a7c1.jpg', sw: [] },
+      { id: 'hat', cat: 'Beach', sub: 'Hats', name: 'Wide-Brim Straw Sun Hat', price: 15.99, img: 'images/1e6ae5ff7a05802c9664a798303d7c2d.jpg', sw: [] },
+      { id: 'la', who: ['Women'], cat: 'Clothing', sub: 'Hoodies', name: 'LA Palm Hoodie', price: 15.99, img: 'images/9de7a58c909ed7607275029c37ec5102.jpg', sw: [['#8FB0D3', 'Sky blue']] },
+      { id: 'custom', cat: 'Custom', sub: 'Custom sweatshirts', name: 'Custom Chenille Sweatshirt', price: 44.99, img: 'images/75f0c160084514042853fec3a4bd7581.jpg', sw: [['#F3E6A8', 'Butter'], ['#1F2A4A', 'Navy'], ['#B9A3DB', 'Lavender'], ['#8FB0D3', 'Sky'], ['#F2C9C6', 'Blush']] },
+      { id: 'anklet', cat: 'Jewelry', sub: 'Anklets', name: 'Seashell Anklet', price: 7.99, img: 'images/e748ad1e19b72b46adc08dbe0aed895b.jpg', sw: [] },
+      { id: 'shades', cat: 'Beach', sub: 'Sunglasses', name: 'Retro Aviator Sunglasses', price: 12.99, img: 'images/dbf9b949bda1ce8fedbc07609aedbf1d.jpg', sw: [['#C9A44C', 'Gold'], ['#6B4226', 'Tortoise']] },
+      { id: 'sunrise', who: ['Women'], cat: 'Clothing', sub: 'Hoodies', name: 'Sunrise Hoodie', price: 15.99, img: 'images/f7fb92204904552d5d5c6a9373ea609d.jpg', sw: [['#F2C9C6', 'Blush']] },
+      { id: 'tote', cat: 'Beach', sub: 'Bags', name: 'Macramé Beach Tote', price: 15.99, img: 'images/7a1ae5da6f7397981f93cb3a947d47ae.jpg', sw: [['#F1E9DA', 'Cream'], ['#D8C3A0', 'Sand']] },
+      { id: 'linen', who: ['Men'], cat: 'Clothing', sub: 'Shirts', name: 'Linen Beach Shirt', price: 15.99, img: 'images/55de8ac8a2437020d422483420bd7575.jpg', sw: [['#F7F4EE', 'White'], ['#A9C8DE', 'Sky']] },
+    { id: 'm_hoodie', who: ['Men'], cat: 'Clothing', sub: 'Hoodies', name: "Men's Coastline Hoodie", price: 18.99, img: 'images/a4c9f2f9080c5c41a012f860b131caf9.jpg', sw: [['#9AA0A6', 'Heather gray'], ['#1F2A4A', 'Navy']] },
+    { id: 'm_crew', who: ['Men'], cat: 'Clothing', sub: 'Crews', name: "Men's Pier Crewneck", price: 16.99, img: 'images/17cc975dbf9be24439ffd6bc4e6bdbfc.jpg', sw: [['#C9C6C0', 'Stone'], ['#2B2B2B', 'Charcoal']] },
+    { id: 'm_trunks', who: ['Men'], cat: 'Clothing', sub: 'Swim', name: "Men's Sunset Swim Trunks", price: 14.99, img: 'images/84c534c2fc2d5ca277d835148af5da65.jpg', sw: [['#1C1B19', 'Black'], ['#8FB0D3', 'Sky']] },
+    { id: 'm_tee', who: ['Men'], cat: 'Clothing', sub: 'Tees', name: "Men's Everyday Beach Tee", price: 9.99, img: 'images/18328d1603ddc1b6c41269549208b4c2.jpg', sw: [['#FFFFFF', 'White'], ['#E8DCC8', 'Sand']] },
+      { id: 'pearls', cat: 'Jewelry', sub: 'Earrings', name: 'Freshwater Pearl Drops', price: 11.99, img: 'images/07ad8f58977bf5ef784fdec6759aecfd.jpg', sw: [] },
+      { id: 'chain', cat: 'Jewelry', sub: 'Necklaces', name: 'Layered Gold Chain', price: 13.99, img: 'images/333abf8b78a6be0e77f5df1cb2d91a44.jpg', sw: [] },
+      { id: 'starring', cat: 'Jewelry', sub: 'Rings', name: 'Starfish Stacking Ring', price: 8.99, img: 'images/095a87138ad1458a5e236e90cecd7abe.jpg', sw: [['#D4AF37', 'Gold'], ['#C0C0C0', 'Silver']] },
+      { id: 'sundress', who: ['Women'], cat: 'Clothing', sub: 'Dresses', name: 'Palm Print Sundress', price: 15.99, img: 'images/863a8a1862edadb6838a1d38571c429e.jpg', sw: [['#7FA77A', 'Palm green'], ['#F2C9C6', 'Blush']] },
+      { id: 'cardigan', who: ['Women'], cat: 'Clothing', sub: 'Knits', name: 'Crochet Beach Cardigan', price: 15.99, img: 'images/a157c865acfac465d3e390e113433e15.jpg', sw: [['#F7F1E6', 'Ivory'], ['#E8B98F', 'Apricot']] },
+      { id: 'surftee', who: ['Women'], cat: 'Clothing', sub: 'Tees', name: 'Malibu Surf Club Tee', price: 12.99, img: 'images/3c95909f215a9ae99bebb122c29533b2.jpg', sw: [['#FFFFFF', 'White'], ['#8FB0D3', 'Sky']] },
+      { id: 'blanket', cat: 'Beach', sub: 'Blankets', name: 'Sand-Free Beach Blanket', price: 15.99, img: 'images/a2b93a67fe9cbf3feed56cc6d3992381.jpg', sw: [['#E8825A', 'Coral'], ['#8FB0D3', 'Sky']] },
+      { id: 'bucket', cat: 'Beach', sub: 'Hats', name: 'Terry Bucket Hat', price: 10.99, img: 'images/5970675a8703f9c9d9861666885d2a9b.jpg', sw: [['#F3E6A8', 'Butter'], ['#F2C9C6', 'Blush']] },
+      { id: 'pouch', cat: 'Beach', sub: 'Bags', name: 'Waterproof Beach Pouch', price: 8.99, img: 'images/9b7f5857770e28b559f91db072ba336e.jpg', sw: [] },
+      { id: 'customtote', cat: 'Custom', sub: 'Custom totes', name: 'Custom Name Tote', price: 14.99, img: 'images/4ac3cd29dd737cc6c64cd5760d94ec06.jpg', sw: [['#F1E9DA', 'Natural'], ['#1F2A4A', 'Navy']] },
+      { id: 'customcap', cat: 'Custom', sub: 'Custom caps', name: 'Custom Embroidered Cap', price: 13.99, img: 'images/76561bf60edf56d04b55a7c7b7c65091.jpg', sw: [['#FFFFFF', 'White'], ['#B9A3DB', 'Lavender']] }
+    ];
+    const BADGES = {
+      mbhoodie: ['Best seller', 'dark'], necklace: ['30 sold today', 'hot'], towel: ['Best seller', 'dark'],
+      bracelet: ['Only 4 left', 'warn'], mbcrew: ['Trending', 'hot'], hat: ['New', 'light'],
+      la: ['18 sold today', 'hot'], shades: ['Staff pick', 'light'], sundress: ['New', 'light'],
+      cardigan: ['Almost gone', 'warn'], chain: ['Best seller', 'dark'], pearls: ['New', 'light'],
+      tote: ['Trending', 'hot'], blanket: ['25 sold today', 'hot'], sunrise: ['Back in stock', 'light'],
+      custom: ['#1 Best seller', 'dark']
+    };
+    const BADGE_STYLES = {
+      dark: 'background: #1B6A86; color: #FFFFFF;',
+      hot: 'background: #FFFFFF; color: #1C1B19;',
+      warn: 'background: #F2C9C6; color: #1C1B19;',
+      light: 'background: rgba(255,255,255,0.9); color: #1C1B19; border: 1px solid rgba(28,27,25,0.12);'
+    };
+    P.forEach((p) => { const b = BADGES[p.id]; p.badge = b ? b[0] : ''; p.hasBadge = !!b; p.badgeStyle = b ? BADGE_STYLES[b[1]] : ''; });
+    const SUBS = {
+      Jewelry: ['Necklaces', 'Bracelets', 'Earrings', 'Anklets'],
+      Clothing: ['Hoodies', 'Crews', 'Shirts'],
+      Beach: ['Towels', 'Hats', 'Sunglasses', 'Bags']
+    };
+    const TITLES = { All: 'Best sellers', Jewelry: 'Jewelry', Clothing: 'Sweats & clothing', Beach: 'Beach day', Custom: 'Custom sweatshirts' };
+    const money = (n) => '$' + n.toFixed(2);
+    const byId = {};
+    P.forEach((p) => { byId[p.id] = p; });
+    const { slide, cat, sub, cart, bagOpen, saved } = this.state;
+    const isSaved = (id) => saved.indexOf(id) !== -1;
+    const pickCat = (c) => this.setState({ cat: c, sub: 'All' });
+
+    const slides = [
+      { img: 'images/cf72144de8547ea891c65def7591980a.jpg', pos: 'center 60%', alt: 'Palm trees silhouetted against a pink California sunset', kicker: 'Sun season', title: 'Golden hour,', italic: 'every day', text: 'Chenille sweats, clover jewelry and beach essentials from our California boutiques.' },
+      { img: 'images/2cfb01ca4a756630b2204812e57539fb.jpg', pos: 'center 50%', alt: 'Looking up at tall Los Angeles palm trees against a blue sky', kicker: 'New in sweats', title: 'Wear your story,', italic: 'not just a sweatshirt', text: 'Manhattan Beach chenille hoodies in butter and navy, sized for him and her.' },
+      { img: 'images/84ec49882ecbce0ef5b44669d6384d6a.jpg', pos: 'center 55%', alt: 'Palm trees along the beach at dusk', kicker: 'Pier to sunset', title: 'Soft colors for', italic: 'salty evenings', text: 'The lavender chenille crew, made for cool nights on the coast.' },
+      { img: 'images/1931089eb5a5779e7781dfba5927cd49.jpg', pos: 'center 70%', alt: 'A row of tall palm trees under a soft sky', kicker: 'Custom chenille', title: 'Your town,', italic: 'stitched for you', text: 'Design custom sweatshirts for families, teams and bridal parties.' }
+    ];
+
+    const notify = () => { clearTimeout(this.toastT); this.setState((st) => ({ bump: (st.bump || 0) + 1, toast: true })); this.toastT = setTimeout(() => this.setState({ toast: false }), 2600); };
+
+    const sq = (this.state.q || '').trim().toLowerCase();
+    const lev = (a, b) => { const m = a.length, n = b.length; if (!m) return n; if (!n) return m; const d = []; for (let i = 0; i <= m; i++) { d.push([i]); } for (let j = 1; j <= n; j++) d[0].push(j); for (let i = 1; i <= m; i++) { for (let j = 1; j <= n; j++) { let v = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a.charAt(i - 1) === b.charAt(j - 1) ? 0 : 1)); if (i > 1 && j > 1 && a.charAt(i - 1) === b.charAt(j - 2) && a.charAt(i - 2) === b.charAt(j - 1)) v = Math.min(v, d[i - 2][j - 2] + 1); d[i].push(v); } } return d[m][n]; };
+    const tolerance = (t) => (t.length >= 7 ? 2 : t.length >= 4 ? 1 : 0);
+    const tokOk = (t, words) => words.some((w) => w.startsWith(t));
+    const syn = { Beach: 'beach shop', Clothing: 'clothing clothes', Jewelry: 'jewelry jewellery', Custom: 'custom personalized' };
+    const searchHits = sq ? P.filter((p) => { const words = (p.name + ' ' + p.sub + ' ' + (syn[p.cat] || p.cat) + ' ' + (p.who || []).join(' ')).toLowerCase().split(/[^a-z0-9]+/).filter(Boolean); return sq.split(/\s+/).every((t) => tokOk(t, words)); }).slice(0, 6) : [];
+    const setCart = (fn) => this.setState((s) => ({ cart: fn(s.cart) }));
+    const add = (id) => {
+      setCart((c) => c.find((l) => l.id === id) ? c.map((l) => l.id === id ? { ...l, qty: l.qty + 1 } : l) : [...c, { id, qty: 1 }]);
+      notify();
+    };
+    const inCat = P.filter((p) => cat === 'All' || p.cat === cat);
+    const BEST = ['custom', 'necklace', 'mbhoodie', 'towel', 'chain', 'mbcrew', 'blanket', 'bracelet', 'la', 'tote'];
+    const shownRaw = cat === 'All' ? BEST.map((id) => byId[id]) : inCat.slice(0, 10);
+    const subList = SUBS[cat] || [];
+    const lines = cart.filter((l) => byId[l.id]).map((l) => {
+      const p = byId[l.id];
+      return {
+        name: p.name, img: p.img, hasImg: !!p.img, isPh: !p.img, tint: p.tint, qty: l.qty,
+        variant: p.sw[0] ? p.sw[0][1] : 'One size',
+        lineTotal: money(p.price * l.qty),
+        inc: () => setCart((c) => c.map((x) => x.id === l.id ? { ...x, qty: x.qty + 1 } : x)),
+        dec: () => setCart((c) => c.map((x) => x.id === l.id ? { ...x, qty: x.qty - 1 } : x).filter((x) => x.qty > 0)),
+        remove: () => setCart((c) => c.filter((x) => x.id !== l.id))
+      };
+    });
+    const total = cart.reduce((t, l) => t + (byId[l.id] ? byId[l.id].price * l.qty : 0), 0);
+    const ship = total === 0 || total >= 50 ? 0 : 5.99;
+    const on = 'font-weight: 600; border-bottom: 2px solid #1C1B19;';
+    const off = 'font-weight: 500; border-bottom: 2px solid transparent;';
+
+    const pageVals = () => {
+      const { bStyle, bColor, bLetter, bThread, bSize, line1, line2, place, nudge, scale } = this.state;
+      const STY = [['crew', 'Crewneck', 44.99], ['hoodie', 'Hoodie', 64.99]];
+      const COL = [['#F3E6A8', 'Butter'], ['#1F2A4A', 'Navy'], ['#B9A3DB', 'Lavender'], ['#8FB0D3', 'Sky'], ['#F2C9C6', 'Blush']];
+      const IMGS = { crew: ['images/6a5103d1050c0c83a98ee7a2008a0813.png', 'images/375bddf7979b24accc22e71948162162.png', 'images/d7675fdb868ff80e8d0d5fa5ab888b80.png', 'images/37f1b8fe39d1fccd0a2bc586e3b13067.png', 'images/188d552f494c27d8401cae5143f278e7.png'], hoodie: ['images/18f99ba357e0f6003532398888a4bf4d.png', 'images/2f74c472b7a501bcefd40fdfad9621cd.png', 'images/8c0653ee01b581cee54e9077225b6bb3.png', 'images/933f738675a8f8ec0322d0e9a4bdc051.png', 'images/b9cbcec8feea9ae7aeb16a112f40634b.png'] };
+      const PLACES = [['center', 'Center chest'], ['left', 'Left chest'], ['low', 'Big and low']];
+      const POS = { crew: { center: [48, 36, 1], left: [62, 27, 0.45], low: [48, 50, 1.2] }, hoodie: { center: [50, 46, 0.9], left: [64, 37, 0.4], low: [50, 52, 1.05] } };
+      const LET = [['varsity', 'Varsity', 'Georgia, serif', 'normal', '700', '2'], ['script', 'Script', "'Libre Caslon Text', Georgia, serif", 'italic', '400', '0'], ['serif', 'Classic', "'Libre Caslon Display', Georgia, serif", 'normal', '400', '4']];
+      const THR = [['#FFFFFF', 'White'], ['#F7E7C6', 'Cream'], ['#1C1B19', 'Black'], ['#C2452D', 'Coral']];
+      const clampX = (v) => Math.round(Math.min(74, Math.max(26, v)) * 10) / 10;
+      const clampY = (v) => Math.round(Math.min(80, Math.max(14, v)) * 10) / 10;
+      const curX = this.state.tx != null ? this.state.tx : POS[bStyle][place][0];
+      const curY = this.state.ty != null ? this.state.ty : POS[bStyle][place][1] + nudge * 0.8;
+      const st = STY.find((x) => x[0] === bStyle);
+      const col = COL[bColor];
+      const le = LET.find((x) => x[0] === bLetter);
+      const th = THR[bThread];
+      const dark = bColor === 1;
+      const words = (line1 || 'Your word').toUpperCase();
+      const len = words.length;
+      const big = Math.max(22, Math.min(52, Math.round(330 / Math.max(len, 5))));
+      const price = st[2] + (line2 ? 4 : 0);
+      const on = 'border: 1px solid #1B6A86; box-shadow: inset 0 0 0 1px #1B6A86; background: #E4F0F2; color: #12485C;';
+      const off = 'border: 1px solid #E6E1D9; background: #FFFFFF; color: #1C1B19;';
+      return {
+        garment: col[0], colorName: col[1], styleName: st[1], letterName: le[1],
+        isHoodie: bStyle === 'hoodie', isCrew: bStyle === 'crew',
+        thread: th[0], shadow: th[0] === '#FFFFFF' || th[0] === '#F7E7C6' ? '0 1px 0 rgba(0,0,0,0.35), 0 0 2px rgba(0,0,0,0.3)' : '0 1px 0 rgba(255,255,255,0.5)',
+        fontFamily: le[2], fontStyle: le[3], fontWeight: le[4], tracking: le[5], miniOn: !!this.state.miniOn, trackingMini: Math.round(le[5] * 0.25 * 10) / 10, toPreview: () => { const el = typeof document !== 'undefined' && document.querySelector('#builder .hc-stage'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); },
+        fontSize: (Math.min(12, 70 / Math.max(len, 5)) * (bLetter === 'script' ? 1.25 : 0.95) * POS[bStyle][place][2] * scale / 100).toFixed(2), fontSize2: (3.6 * POS[bStyle][place][2] * scale / 100).toFixed(2),
+        line1: bLetter === 'script' ? (line1 || 'Your word') : words, line2: line2,
+        previewText: line1 || 'Your word',
+        garmentImg: IMGS[bStyle][bColor],
+        textLeft: curX + '%',
+        textTop: curY + '%',
+        dragStart: (e) => { const st = e.currentTarget.parentElement; if (!st) return; const r = st.getBoundingClientRect(); e.preventDefault(); const mv = (ev) => this.setState({ tx: clampX((ev.clientX - r.left) / r.width * 100), ty: clampY((ev.clientY - r.top) / r.height * 100) }); const up = () => { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); }; window.addEventListener('pointermove', mv); window.addEventListener('pointerup', up); },
+        moveL: () => this.setState({ tx: clampX(curX - 3), ty: curY }), moveR: () => this.setState({ tx: clampX(curX + 3), ty: curY }),
+        moveU: () => this.setState({ tx: curX, ty: clampY(curY - 3) }), moveD: () => this.setState({ tx: curX, ty: clampY(curY + 3) }),
+        sizeDown: () => this.setState({ scale: Math.max(60, scale - 10) }), sizeUp: () => this.setState({ scale: Math.min(150, scale + 10) }),
+        resetText: () => this.setState({ tx: null, ty: null, nudge: 0, scale: 100, place: 'center' }),
+        inches: Math.max(2, Math.min(20, len * (Number((Math.min(12, 70 / Math.max(len, 5)) * (bLetter === 'script' ? 1.25 : 0.95) * POS[bStyle][place][2] * scale / 100)) * (bLetter === 'script' ? 0.5 : 0.7)) / 100 * 26)).toFixed(0),
+        len1: (line1 || '').length,
+        bQty: this.state.bQty, bQtyUp: () => this.setState((st2) => ({ bQty: Math.min(50, st2.bQty + 1) })), bQtyDown: () => this.setState((st2) => ({ bQty: Math.max(1, st2.bQty - 1) })),
+        addDisabled: this.state.proof ? 'false' : 'true', addStyle: this.state.proof ? 'background: #1C1B19; color: #FFFFFF; cursor: pointer;' : 'background: #E6E1D9; color: #8A847C; cursor: not-allowed;',
+        proofAttr: this.state.proof ? 'true' : 'false', proofMark: this.state.proof ? '✓' : '', proofErr: !!this.state.proofErr,
+        proofBox: this.state.proof ? 'background: #1B6A86; color: #FFFFFF; border: 1.5px solid #1B6A86;' : 'background: #FFFFFF; border: 1.5px solid #8A847B;',
+        toggleProof: () => this.setState((st2) => ({ proof: !st2.proof, proofErr: false })),
+        placeName: (PLACES.find((x) => x[0] === place) || PLACES[0])[1].toLowerCase(),
+        places: PLACES.map(([k, label]) => ({ label, active: k === place && this.state.tx == null ? 'true' : 'false', seg: k === place && this.state.tx == null ? 'background: #FFFFFF; color: #1C1B19; box-shadow: 0 1px 4px rgba(28,27,25,0.14);' : 'background: transparent; color: #55504A;', pick: () => this.setState({ place: k, tx: null, ty: null, nudge: 0 }), style: k === place ? on : off })),
+        nudge, scale,
+        nudgeLabel: nudge === 0 ? 'Centered' : (nudge < 0 ? 'Up ' + (-nudge) : 'Down ' + nudge),
+        sizeLabel: scale + '%',
+        setNudge: (e) => this.setState({ nudge: Number(e.target.value) }),
+        setScale: (e) => this.setState({ scale: Number(e.target.value) }),
+        hasLine2: !!line2,
+        setLine1: (e) => this.setState({ line1: e.target.value }),
+        setLine2: (e) => this.setState({ line2: e.target.value }),
+        styles: STY.map(([k, label, p]) => ({ label, price: money(p), active: k === bStyle ? 'true' : 'false', pick: () => this.setState({ bStyle: k }), style: k === bStyle ? on : off })),
+        colors: COL.map(([hex, label], i) => ({ hex, label, active: i === bColor ? 'true' : 'false', pick: () => this.setState({ bColor: i }), style: i === bColor ? 'border: 3px solid #FFFFFF; box-shadow: 0 0 0 2px #1B6A86;' : 'border: 1px solid rgba(0,0,0,0.2);' })),
+        letterings: LET.map(([k, label, ff, fs]) => ({ label, ff, fs, active: k === bLetter ? 'true' : 'false', pick: () => this.setState({ bLetter: k }), style: k === bLetter ? on : off })),
+        threads: THR.map(([hex, label], i) => ({ hex, label, active: i === bThread ? 'true' : 'false', pick: () => this.setState({ bThread: i }), style: i === bThread ? 'border: 3px solid #FFFFFF; box-shadow: 0 0 0 2px #1B6A86;' : 'border: 1px solid rgba(0,0,0,0.25);' })),
+        sizes: ['XS', 'S', 'M', 'L', 'XL', '2XL'].map((z) => ({ label: z, active: z === bSize ? 'true' : 'false', pick: () => this.setState({ bSize: z }), style: z === bSize ? on : off })),
+        basePrice: money(st[2]), totalPrice: money(price * this.state.bQty),
+        addCustom: () => { if (!this.state.proof) { this.setState({ proofErr: true }); return; } const n = this.state.bQty; setCart((c) => c.find((l) => l.id === 'custom') ? c.map((l) => l.id === 'custom' ? { ...l, qty: l.qty + n } : l) : [...c, { id: 'custom', qty: n }]); notify(); }
+      };
+    };
+    const decorate = (p) => ({ ...p, price: money(p.price), hasImg: !!p.img, isPh: !p.img, sw: p.sw.map(([hex, label]) => ({ hex, label })), savedAttr: isSaved(p.id) ? 'true' : 'false', heartFill: isSaved(p.id) ? '#C2452D' : 'none', heartColor: isSaved(p.id) ? 'color: #C2452D;' : 'color: #1C1B19;', toggleSave: () => this.setState((s) => ({ saved: s.saved.indexOf(p.id) !== -1 ? s.saved.filter((x) => x !== p.id) : [...s.saved, p.id] })), add: () => add(p.id) });
+    return {
+      ...pageVals(decorate),
+      hero: slides[slide],
+      dots: slides.map((s, i) => ({ n: i + 1, pick: () => this.setState({ slide: i }), style: i === slide ? 'width: 28px; background: #1C1B19;' : 'width: 12px; background: #BDB6AB;' })),
+      catAll: () => pickCat('All'),
+      catJewelry: () => pickCat('Jewelry'),
+      catClothing: () => pickCat('Clothing'),
+      catBeach: () => pickCat('Beach'),
+      catCustom: () => pickCat('Custom'),
+      heading: TITLES[cat],
+      shownCount: shownRaw.length + (shownRaw.length === 1 ? ' piece' : ' pieces'),
+      cats: ['All', 'Jewelry', 'Clothing', 'Beach', 'Custom'].map((c) => ({
+        label: c === 'All' ? 'Best sellers' : c,
+        count: c === 'All' ? P.length : P.filter((p) => p.cat === c).length,
+        active: c === cat ? 'true' : 'false',
+        pick: () => pickCat(c),
+        style: c === cat ? on : off
+      })),
+      hasSubs: subList.length > 0,
+      subs: ['All'].concat(subList).map((s) => ({
+        label: s === 'All' ? 'All ' + cat.toLowerCase() : s,
+        active: s === sub ? 'true' : 'false',
+        pick: () => this.setState({ sub: s }),
+        style: s === sub ? 'font-weight: 600; color: #1C1B19; text-decoration: underline; text-underline-offset: 6px;' : 'font-weight: 500;'
+      })),
+      savedCount: saved.length,
+      tabBag: this.state.bagTab !== 'saved',
+      tabSaved: this.state.bagTab === 'saved',
+      bagTabAttr: this.state.bagTab !== 'saved' ? 'true' : 'false',
+      savedTabAttr: this.state.bagTab === 'saved' ? 'true' : 'false',
+      bagTabStyle: this.state.bagTab !== 'saved' ? 'background: #1C1B19; color: #FFFFFF;' : 'background: transparent; color: #1C1B19;',
+      savedTabStyle: this.state.bagTab === 'saved' ? 'background: #1C1B19; color: #FFFFFF;' : 'background: transparent; color: #1C1B19;',
+      showBagTab: () => this.setState({ bagTab: 'bag' }),
+      showSavedTab: () => this.setState({ bagTab: 'saved' }),
+      openSaved: () => this.setState({ bagOpen: true, bagTab: 'saved', menuOpen: false }),
+      savedEmpty: saved.length === 0,
+      savedLines: saved.map((id) => byId[id]).filter(Boolean).map((p) => ({ name: p.name, img: p.img, href: 'product.html?p=' + p.id, open: SAVED_OPEN(p), price: money(p.price), remove: () => this.setState((st) => ({ saved: st.saved.filter((x) => x !== p.id) })), move: () => { setCart((c) => c.find((l) => l.id === p.id) ? c.map((l) => l.id === p.id ? { ...l, qty: l.qty + 1 } : l) : [...c, { id: p.id, qty: 1 }]); this.setState((st) => ({ saved: st.saved.filter((x) => x !== p.id), bagTab: 'bag' })); } })),
+      rails: [
+        { id: 'jewelry-rail', cat: 'Jewelry', kicker: 'Little gold things', title: 'Jewelry', bg: '#FCEBDC', kickerColor: '#8C4426', mt: 'margin-top: -22px;' },
+        { id: 'clothing-rail', cat: 'Clothing', kicker: 'Soft layers, coastal colors', title: 'Clothing', bg: '#EEE9F6', kickerColor: '#5B4A8A', mt: 'margin-top: -22px;' },
+        { id: 'beach-rail', cat: 'Beach', kicker: 'Sand, salt, sun', title: 'Beach Shop', bg: '#E4F0F2', kickerColor: '#1B6A86', mt: 'margin-top: -22px;' }
+      ].map((r) => {
+        this.railEls = this.railEls || {};
+        const scroll = (dir) => { const el = this.railEls[r.id]; if (el) el.scrollBy({ left: dir * 556, behavior: 'smooth' }); };
+        return {
+          ...r,
+          setEl: (el) => { this.railEls = this.railEls || {}; this.railEls[r.id] = el; },
+          prev: () => scroll(-1),
+          next: () => scroll(1),
+          viewAll: () => pickCat(r.cat),
+          items: P.filter((p) => p.cat === r.cat).map((p) => ({
+            ...p,
+            price: money(p.price),
+            hasImg: !!p.img,
+            isPh: !p.img,
+            sw: p.sw.map(([hex, label]) => ({ hex, label })),
+            colors: p.sw.length > 1 ? p.sw.length + ' colors' : '',
+            savedAttr: isSaved(p.id) ? 'true' : 'false',
+            heartFill: isSaved(p.id) ? '#C2452D' : 'none',
+            heartColor: isSaved(p.id) ? 'color: #C2452D;' : 'color: #1C1B19;',
+            toggleSave: () => this.setState((s) => ({ saved: s.saved.indexOf(p.id) !== -1 ? s.saved.filter((x) => x !== p.id) : [...s.saved, p.id] })),
+            add: () => add(p.id)
+          }))
+        };
+      }),
+      setPopEl: (el) => { this.popEl = el; },
+      popPrev: () => { this.popPaused = true; this.scrollPop(-1, false); clearTimeout(this.popResume); this.popResume = setTimeout(() => { this.popPaused = false; }, 6000); },
+      popNext: () => { this.popPaused = true; this.scrollPop(1, true); clearTimeout(this.popResume); this.popResume = setTimeout(() => { this.popPaused = false; }, 6000); },
+      pausePop: () => { this.popPaused = true; },
+      resumePop: () => { this.popPaused = false; },
+      shown: shownRaw.map((p) => ({
+        ...p,
+        price: money(p.price),
+        hasImg: !!p.img,
+        isPh: !p.img,
+        sw: p.sw.map(([hex, label]) => ({ hex, label })),
+        savedAttr: isSaved(p.id) ? 'true' : 'false',
+        heartFill: isSaved(p.id) ? '#C2452D' : 'none',
+        heartColor: isSaved(p.id) ? 'color: #C2452D;' : 'color: #1C1B19;',
+        toggleSave: () => this.setState((s) => ({ saved: s.saved.indexOf(p.id) !== -1 ? s.saved.filter((x) => x !== p.id) : [...s.saved, p.id] })),
+        add: () => add(p.id)
+      })),
+      bagOpen,
+      searchQ: this.state.q || '',
+      setQ: (e) => this.setState({ q: e.target.value }),
+      sboxStyle: (this.state.sUI || (this.state.q || '').length) ? '' : 'display: none !important;',
+      stoggleStyle: (this.state.sUI || (this.state.q || '').length) ? 'display: none !important;' : '',
+      openSearch: () => this.setState({ sUI: true }),
+      blurSearch: (e) => { const v = e.target.value; setTimeout(() => { if (!v && !(this.state.q || '').length) this.setState({ sUI: false }); }, 180); },
+      focusSearch: (el) => { if (el && this.state.sUI && !this._sFocused) { this._sFocused = true; setTimeout(() => el.focus(), 0); } if (!el) this._sFocused = false; },
+      clearSearch: () => this.setState({ q: '' }),
+      searchOpen: sq.length > 0,
+      searchEmpty: sq.length > 0 && searchHits.length === 0,
+      searchResults: searchHits.map((p) => ({ name: p.name, sub: p.sub, img: p.img, price: money(p.price), href: 'shop.html', open: () => this.setState({ q: '' }) })),
+      noSubmit: (e) => e.preventDefault(),
+      toastOn: !!this.state.toast,
+      bumpCls: this.state.bump ? (this.state.bump % 2 ? 'hc-bump-a' : 'hc-bump-b') : '',
+      openBag: () => clearTimeout(this.bagT) || this.setState({ bagOut: false, bagOpen: true, toast: false, bagTab: 'bag', menuOpen: false }),
+      megaOpen: !!this.state.megaOpen,
+      megaAttr: this.state.megaOpen ? 'true' : 'false',
+      toggleMega: (e) => { if (!this.state.megaOpen) { e.preventDefault(); this.setState({ megaOpen: true }); } else this.setState({ megaOpen: false }); },
+      closeMega: () => { if (this.state.megaOpen) this.setState({ megaOpen: false }); },
+      megaCols: [{ title: "Featured", items: [{ label: "All items", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "New arrivals", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Best sellers", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Gifts under $20", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }] }, { title: "Clothing", items: [{ label: "All clothing", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Women", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Men", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Sweaters and hoodies", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Dresses", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Tees", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }] }, { title: "Jewelry", items: [{ label: "All jewelry", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Necklaces", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Bracelets", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Earrings", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Rings", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Anklets", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }] }, { title: "Beach Shop", items: [{ label: "All beach", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Towels", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Bags and totes", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Hats", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Sunglasses", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Blankets", href: 'shop.html', pick: () => this.setState({ megaOpen: false }) }] }, { title: "Custom", items: [{ label: "Design your own sweatshirt", href: 'design.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Custom totes", href: 'design.html', pick: () => this.setState({ megaOpen: false }) }, { label: "Custom caps", href: 'design.html', pick: () => this.setState({ megaOpen: false }) }] }],
+      menuOpen: this.state.menuOpen,
+      menuAttr: this.state.menuOpen ? 'true' : 'false',
+      openMenu: () => this.setState({ menuOpen: true }),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      shopOpen: this.state.shopOpen,
+      shopAttr: this.state.shopOpen ? 'true' : 'false',
+      shopSign: this.state.shopOpen ? '−' : '+',
+      toggleShop: () => this.setState((st) => ({ shopOpen: !st.shopOpen })),
+      closeBag: () => { if (this.state.bagOut) return; clearTimeout(this.bagT); this.setState({ bagOut: true }); this.bagT = setTimeout(() => this.setState({ bagOpen: false, bagOut: false }), 340); }, bagOutCls: this.state.bagOut ? 'hc-out' : '',
+      bagCount: cart.reduce((t, l) => t + l.qty, 0),
+      bagEmpty: lines.length === 0,
+      lines,
+      subtotal: money(total),
+      shipping: ship === 0 ? 'Free' : money(ship),
+      shipMsg: total >= 50 ? 'You\u2019ve unlocked free shipping!' : 'You\u2019re ' + money(50 - total) + ' away from free shipping', shipPct: Math.min(100, Math.round(total / 50 * 100)) + '%',
+      total: money(total + ship)
+    };
+  }
+}
+</script>
+</body>
+</html>
