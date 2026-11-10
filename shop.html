@@ -47,6 +47,7 @@ a{color:#1C1B19}a:hover{color:#6B5A44}
 .hc-addbtn .hc-ck{display:inline-flex;width:22px;height:22px;border-radius:50%;background:#FFFFFF;color:#1C1B19;align-items:center;justify-content:center;margin-right:8px;font-size:13px;animation:hc-check .35s cubic-bezier(.2,.8,.2,1) both}
 @media (prefers-reduced-motion: reduce){.hc-qa .hc-qa-card,.hc-qa .hc-bagbg,.hc-qa.hc-out .hc-qa-card,.hc-qa.hc-out .hc-bagbg,.hc-addbtn.hc-done,.hc-addbtn .hc-ck{animation:none}}
 .hc-savedname:hover{text-decoration:underline !important;text-underline-offset:3px}.hc-savedimg img{transition:transform .25s ease}.hc-savedimg:hover img{transform:scale(1.05)}
+.hc-typelist{scrollbar-color:#D9D3CA transparent}
 @keyframes hc-toast{from{opacity:0;transform:translate(-50%,16px)}to{opacity:1;transform:translate(-50%,0)}}
 .hc-sr:hover{background:#F4F2EF}
 @media (max-width: 760px){.hc-foot{grid-template-columns:1fr 1fr !important}.hc-foot > :first-child{grid-column:1 / -1}}
@@ -210,9 +211,11 @@ a{color:#1C1B19}a:hover{color:#6B5A44}
         <div style="display: flex; flex-direction: column; gap: 4px; border-top: 1px solid #EEEBE6; padding-top: 18px;">
           <button type="button" aria-expanded="{{fgType.attr}}" onClick="{{fgType.toggle}}" style="display: flex; justify-content: space-between; align-items: center; width: 100%; min-height: 44px; border: 0; background: transparent; padding: 0 12px; font: inherit; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #6B655E; cursor: pointer; text-align: left;"><span>Type</span><span style="display: flex; align-items: center; gap: 8px; letter-spacing: 0; text-transform: none; font-weight: 500; color: #1C1B19;">{{fgType.current}}<span aria-hidden="true" style="font-size: 20px; font-weight: 400;">{{fgType.sign}}</span></span></button>
             <sc-if value="{{fgType.open}}" hint-placeholder-val="{{false}}">
+            <div class="hc-typelist" style="height: 264px; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; padding-right: 4px; scrollbar-width: thin;">
             <sc-for list="{{subFilters}}" as="f" hint-placeholder-count="4">
               <button type="button" aria-pressed="{{f.active}}" onClick="{{f.pick}}" style="display: flex; justify-content: space-between; align-items: center; width: 100%; min-height: 40px; border: 0; background: transparent; padding: 0 12px; border-radius: 12px; font: inherit; font-size: 15px; color: #1C1B19; cursor: pointer; text-align: left; {{f.style}}"><span>{{f.label}}</span><span style="font-size: 13px; color: #6B655E;">{{f.count}}</span></button>
             </sc-for>
+            </div>
             </sc-if>
         </div>
         <div style="display: flex; flex-direction: column; gap: 4px; border-top: 1px solid #EEEBE6; padding-top: 18px;">
@@ -466,7 +469,7 @@ a{color:#1C1B19}a:hover{color:#6B5A44}
       </div>
     </section>
 
-    <section style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); width: 100vw; box-sizing: border-box; margin-bottom: -22px; background: #E4F0F2; padding: 56px max(32px, calc(50vw - 632px));">
+    <section style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); width: 100vw; box-sizing: border-box; margin-bottom: -22px; background: #FFFFFF; padding: 32px max(28px, calc(50vw - 660px));">
       <h2 style="margin: 0 0 24px; font-family: 'Libre Caslon Text', Georgia, serif; font-style: italic; font-weight: 400; font-size: 44px;">Pairs well with</h2>
       <div class="hc-prow" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px;">
         <sc-for list="{{pairs}}" as="p" hint-placeholder-count="4">
