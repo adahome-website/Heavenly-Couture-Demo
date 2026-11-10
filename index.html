@@ -129,6 +129,7 @@ a{color:#1C1B19}a:hover{color:#6B5A44}
 .hc-mini{transition:transform .25s ease, box-shadow .25s ease, background-color .25s ease}.hc-mini:hover{transform:translateY(-3px);background-color:#FFFFFF !important;box-shadow:0 0 0 1px #ECE8E2, 0 10px 24px rgba(28,27,25,0.10)}.hc-mini img{transition:transform .4s ease}.hc-mini:hover img{transform:scale(1.06)}.hc-mini button[aria-label^="Add"],.hc-mini button[aria-label="Grab the deal"]{transition:transform .2s ease}.hc-mini button[aria-label^="Add"]:hover,.hc-mini button[aria-label="Grab the deal"]:hover{transform:scale(1.08)}@media (prefers-reduced-motion: reduce){.hc-mini,.hc-mini img{transition:none}.hc-mini:hover,.hc-mini:hover img{transform:none}}
 @media (min-width: 701px) and (max-width: 860px){.hc-two{grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;gap:24px !important}.hc-two .hc-sticky{padding:24px !important}}
 @media (min-width: 601px) and (max-width: 700px){.hc-pgal{width:100%;max-width:460px;margin:0 auto}}
+.hc-ib-b{display:none}@media (hover: hover){.hc-inbag:hover .hc-ib-a{display:none}.hc-inbag:hover .hc-ib-b{display:inline}}
 </style>
 </helmet>
 <div style="background: #FFFFFF; color: #1C1B19; font-family: 'Inter', system-ui, sans-serif; padding: 0 0 40px; overflow-x: clip;">
@@ -551,12 +552,12 @@ a{color:#1C1B19}a:hover{color:#6B5A44}
           </div>
         </sc-if>
         <div style="display: flex; gap: 10px; align-items: center;">
-          <div style="display: flex; align-items: center; gap: 4px; background: #F4F2EF; border-radius: 999px; padding: 4px;">
+          <sc-if value="{{notInBag}}" hint-placeholder-val="{{true}}"><div style="display: flex; align-items: center; gap: 4px; background: #F4F2EF; border-radius: 999px; padding: 4px;">
             <button type="button" aria-label="Decrease quantity" onClick="{{qtyDown}}" style="width: 40px; height: 40px; border-radius: 50%; border: 0; background: #FFFFFF; cursor: pointer; font: inherit; font-size: 18px;">−</button>
             <span style="min-width: 28px; text-align: center; font-weight: 600;">{{qty}}</span>
             <button type="button" aria-label="Increase quantity" onClick="{{qtyUp}}" style="width: 40px; height: 40px; border-radius: 50%; border: 0; background: #FFFFFF; cursor: pointer; font: inherit; font-size: 18px;">+</button>
-          </div>
-          <button type="button" onClick="{{addMain}}" style="flex: 1; min-height: 52px; border: 0; border-radius: 999px; background: #1C1B19; color: #FFFFFF; font: inherit; font-weight: 600; font-size: 16px; cursor: pointer;">{{addLabel}}</button>
+          </div></sc-if>
+          <button type="button" class="hc-addmain {{inBagCls}}" aria-label="{{addAria}}" onClick="{{addMain}}" onMouseLeave="{{addLeave}}" style="flex: 1; min-height: 52px; border: 0; border-radius: 999px; background: #1C1B19; color: #FFFFFF; font: inherit; font-weight: 600; font-size: 16px; cursor: pointer;"><span class="hc-ib-a">{{addLabel}}</span><sc-if value="{{inBagMain}}" hint-placeholder-val="{{false}}"><span class="hc-ib-b">Remove from bag</span></sc-if></button>
           <button type="button" aria-label="Save {{prod.name}}" aria-pressed="{{prod.savedAttr}}" onClick="{{prod.toggleSave}}" style="width: 52px; height: 52px; border-radius: 50%; border: 1px solid #BDB6AB; background: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center; {{prod.heartColor}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="{{prod.heartFill}}" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></button>
         </div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 14px;">
@@ -777,6 +778,7 @@ a{color:#1C1B19}a:hover{color:#6B5A44}
         <div style="background: #FFFFFF; border-radius: 22px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
           <span style="font-weight: 600; font-size: 16px;">Order summary</span>
           <div style="display: flex; justify-content: space-between;"><span style="color: #6B655E;">Subtotal</span><span>{{subtotal}}</span></div>
+          <sc-if value="{{hasDeal}}" hint-placeholder-val="{{false}}"><div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;"><span style="display: flex; align-items: center; gap: 7px; color: #1B6A86; font-weight: 600;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8L3 12z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>CLOVER2 · Deal of the day</span><span style="color: #1B6A86; font-weight: 600;">−{{dealOff}}</span></div></sc-if><sc-if value="{{dealNudge}}" hint-placeholder-val="{{false}}"><div style="background: #E4F0F2; border-radius: 12px; padding: 10px 12px; font-size: 13px; line-height: 1.45; color: #1C1B19;">Add one more Clover Charm Bracelet and CLOVER2 makes it 2 for $22.</div></sc-if>
           <div style="display: flex; justify-content: space-between;"><span style="color: #6B655E;">Shipping</span><span>{{shipping}}</span></div>
           <div style="border-top: 1px solid #EEEBE6; padding-top: 10px; display: flex; justify-content: space-between; font-weight: 600; font-size: 16px;"><span>Total</span><span>{{total}}</span></div>
         </div>
@@ -954,7 +956,7 @@ class Component extends DCLogic {
       };
     });
     const total = cart.reduce((t, l) => t + (byId[l.id] ? byId[l.id].price * l.qty : 0), 0);
-    const ship = total === 0 || total >= 50 ? 0 : 5.99;
+    const dealN = cart.filter((l) => l.id === 'bracelet').reduce((t, l) => t + l.qty, 0); const dealOff = Math.round(Math.floor(dealN / 2) * 3.98 * 100) / 100; const net = total - dealOff; const ship = total === 0 || net >= 50 ? 0 : 5.99;
     const on = 'font-weight: 600; border-bottom: 2px solid #1C1B19;';
     const off = 'font-weight: 500; border-bottom: 2px solid transparent;';
 
@@ -981,7 +983,7 @@ class Component extends DCLogic {
       const ci = Math.min(colorIdx, Math.max(0, base.sw.length - 1));
       const d = decorate(base);
       return {
-        prod: { ...d, isDeal: base.id === 'bracelet', ...(() => { const n = new Date(this.state.now || Date.now()); const end = new Date(n); end.setHours(24, 0, 0, 0); const r = Math.max(0, Math.floor((end - n) / 1000)); const p = (x) => String(x).padStart(2, '0'); return { dealH: p(Math.floor(r / 3600)), dealM: p(Math.floor((r % 3600) / 60)), dealS: p(r % 60) }; })(), dealBtn: qty >= 2 ? 'Quantity set to 2 \u2713' : 'Get 2 for $22', dealTwo: () => this.setState({ qty: 2 }), priceText: money(base.price), quarter: money(base.price / 4), catTitle: CT[base.cat][0], bg: CT[base.cat][1] },
+        prod: { ...d, isDeal: base.id === 'bracelet', ...(() => { const n = new Date(this.state.now || Date.now()); const end = new Date(n); end.setHours(24, 0, 0, 0); const r = Math.max(0, Math.floor((end - n) / 1000)); const p = (x) => String(x).padStart(2, '0'); return { dealH: p(Math.floor(r / 3600)), dealM: p(Math.floor((r % 3600) / 60)), dealS: p(r % 60) }; })(), dealBtn: (cart.find((l) => l.id === base.id) || { qty: 0 }).qty >= 2 ? '\u2713 2 for $22 in bag' : 'Get 2 for $22', dealTwo: () => { const has = cart.find((l) => l.id === base.id); if (has && has.qty >= 2) return; setCart((c) => c.find((l) => l.id === base.id) ? c.map((l) => l.id === base.id ? { ...l, qty: 2 } : l) : [...c, { id: base.id, qty: 2 }]); notify(base); }, priceText: money(base.price), quarter: money(base.price / 4), catTitle: CT[base.cat][0], bg: CT[base.cat][1] },
         mainImg: pics[photo] || base.img,
         thumbs: pics.map((img, i) => ({ img, n: i + 1, active: i === photo ? 'true' : 'false', pick: () => this.setState({ photo: i }), style: i === photo ? 'border: 2px solid #1C1B19;' : 'border: 2px solid transparent;' })),
         hasColors: base.sw.length > 0,
@@ -993,8 +995,8 @@ class Component extends DCLogic {
         qtyUp: () => { const k = base.id + '|' + (SIZES.length ? size : ''); const inB = (this.state.added || {})[k]; if (inB) { this.setState((st) => ({ added: { ...st.added, [k]: (st.added[k] || 0) + 1 } })); setCart((c) => c.find((l) => l.id === base.id) ? c.map((l) => l.id === base.id ? { ...l, qty: l.qty + 1 } : l) : [...c, { id: base.id, qty: 1 }]); notify(); } else this.setState({ qty: qty + 1 }); },
         qtyDown: () => { const k = base.id + '|' + (SIZES.length ? size : ''); const inB = (this.state.added || {})[k]; if (inB) { if (inB <= 1) return; this.setState((st) => ({ added: { ...st.added, [k]: st.added[k] - 1 } })); setCart((c) => c.map((l) => l.id === base.id ? { ...l, qty: l.qty - 1 } : l).filter((l) => l.qty > 0)); } else this.setState({ qty: Math.max(1, qty - 1) }); },
         lineTotal: money(base.price * qty),
-        addLabel: (this.state.added || {})[base.id + '|' + (SIZES.length ? size : '')] ? '✓ In bag' + (SIZES.length ? ' · Size ' + size : '') : 'Add to bag',
-        addMain: () => { const k = base.id + '|' + (SIZES.length ? size : ''); const n = (this.state.added || {})[k] ? 1 : qty; this.setState((st) => ({ added: { ...st.added, [k]: (st.added[k] || 0) + n } })); setCart((c) => c.find((l) => l.id === base.id) ? c.map((l) => l.id === base.id ? { ...l, qty: l.qty + n } : l) : [...c, { id: base.id, qty: n }]); notify(base); },
+        ...(() => { const inLine = cart.find((l) => l.id === base.id); return { inBagMain: !!inLine, notInBag: !inLine, inBagCls: inLine && !this.state.justAdded ? 'hc-inbag' : '', addLeave: () => { if (this.state.justAdded) this.setState({ justAdded: false }); }, addAria: inLine ? 'In bag. Tap to remove from bag' : 'Add to bag', addLabel: inLine ? (inLine.qty > 1 ? '\u2713 ' + inLine.qty + ' in bag' : '\u2713 In bag') : 'Add to bag' }; })(),
+        addMain: () => { if (cart.find((l) => l.id === base.id)) { setCart((c) => c.filter((l) => l.id !== base.id)); this.setState((st) => { const ad = { ...(st.added || {}) }; Object.keys(ad).forEach((k) => { if (k.split('|')[0] === base.id) delete ad[k]; }); return { added: ad, qty: 1 }; }); return; } const k = base.id + '|' + (SIZES.length ? size : ''); const n = qty; this.setState((st) => ({ justAdded: true, added: { ...st.added, [k]: (st.added[k] || 0) + n } })); setCart((c) => c.find((l) => l.id === base.id) ? c.map((l) => l.id === base.id ? { ...l, qty: l.qty + n } : l) : [...c, { id: base.id, qty: n }]); notify(base); },
         panels: panels.map(([k, title, text]) => ({ title, text, isOpen: open === k, open: open === k ? 'true' : 'false', sign: open === k ? '−' : '+', toggle: () => this.setState({ pOpen: open === k ? '' : k }) })),
         pairs: P.filter((p) => p.id !== base.id && p.cat !== base.cat && p.cat !== 'Custom').slice(0, 4).map((p) => ({ ...decorate(p), open: () => openProd(p.id) }))
       };
@@ -1130,8 +1132,9 @@ class Component extends DCLogic {
       lines,
       subtotal: money(total),
       shipping: ship === 0 ? 'Free' : money(ship),
-      shipMsg: total >= 50 ? 'You\u2019ve unlocked free shipping!' : 'You\u2019re ' + money(50 - total) + ' away from free shipping', shipPct: Math.min(100, Math.round(total / 50 * 100)) + '%',
-      total: money(total + ship)
+      shipMsg: net >= 50 ? 'You\u2019ve unlocked free shipping!' : 'You\u2019re ' + money(50 - net) + ' away from free shipping', shipPct: Math.min(100, Math.round(net / 50 * 100)) + '%',
+      hasDeal: dealOff > 0, dealOff: money(dealOff), dealNudge: dealN % 2 === 1,
+      total: money(net + ship)
     };
     { const qa = this.state.qa; const qp = qa && byId[qa.id];
       if (!qp) { R.qaOpen = false; R.qa = { colors: [], sizes: [] }; }

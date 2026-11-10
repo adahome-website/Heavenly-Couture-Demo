@@ -244,6 +244,7 @@ a{color:#1C1B19}a:hover{color:#6B5A44}
         <div style="background: #FFFFFF; border-radius: 22px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
           <span style="font-weight: 600; font-size: 16px;">Order summary</span>
           <div style="display: flex; justify-content: space-between;"><span style="color: #6B655E;">Subtotal</span><span>{{subtotal}}</span></div>
+          <sc-if value="{{hasDeal}}" hint-placeholder-val="{{false}}"><div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;"><span style="display: flex; align-items: center; gap: 7px; color: #1B6A86; font-weight: 600;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8L3 12z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>CLOVER2 · Deal of the day</span><span style="color: #1B6A86; font-weight: 600;">−{{dealOff}}</span></div></sc-if><sc-if value="{{dealNudge}}" hint-placeholder-val="{{false}}"><div style="background: #E4F0F2; border-radius: 12px; padding: 10px 12px; font-size: 13px; line-height: 1.45; color: #1C1B19;">Add one more Clover Charm Bracelet and CLOVER2 makes it 2 for $22.</div></sc-if>
           <div style="display: flex; justify-content: space-between;"><span style="color: #6B655E;">Shipping</span><span>{{shipping}}</span></div>
           <div style="border-top: 1px solid #EEEBE6; padding-top: 10px; display: flex; justify-content: space-between; font-weight: 600; font-size: 16px;"><span>Total</span><span>{{total}}</span></div>
         </div>
@@ -399,7 +400,7 @@ class Component extends DCLogic {
       };
     });
     const total = cart.reduce((t, l) => t + (byId[l.id] ? byId[l.id].price * l.qty : 0), 0);
-    const ship = total === 0 || total >= 50 ? 0 : 5.99;
+    const dealN = cart.filter((l) => l.id === 'bracelet').reduce((t, l) => t + l.qty, 0); const dealOff = Math.round(Math.floor(dealN / 2) * 3.98 * 100) / 100; const net = total - dealOff; const ship = total === 0 || net >= 50 ? 0 : 5.99;
     const on = 'font-weight: 600; border-bottom: 2px solid #1C1B19;';
     const off = 'font-weight: 500; border-bottom: 2px solid transparent;';
 
@@ -552,8 +553,9 @@ class Component extends DCLogic {
       lines,
       subtotal: money(total),
       shipping: ship === 0 ? 'Free' : money(ship),
-      shipMsg: total >= 50 ? 'You\u2019ve unlocked free shipping!' : 'You\u2019re ' + money(50 - total) + ' away from free shipping', shipPct: Math.min(100, Math.round(total / 50 * 100)) + '%',
-      total: money(total + ship)
+      shipMsg: net >= 50 ? 'You\u2019ve unlocked free shipping!' : 'You\u2019re ' + money(50 - net) + ' away from free shipping', shipPct: Math.min(100, Math.round(net / 50 * 100)) + '%',
+      hasDeal: dealOff > 0, dealOff: money(dealOff), dealNudge: dealN % 2 === 1,
+      total: money(net + ship)
     };
   }
 }

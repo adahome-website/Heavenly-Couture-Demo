@@ -116,10 +116,13 @@ a{color:#1C1B19}a:hover{color:#6B5A44}
           <input id="co-code" type="text" placeholder="Discount code" value="{{code}}" onInput="{{setCode}}" style="min-height: 52px; border: 1px solid #BDB6AB; border-radius: 14px; padding: 0 16px; font: inherit; font-size: 15px; color: #1C1B19; background: #FFFFFF; width: 100%; box-sizing: border-box; flex: 1;">
           <button type="submit" style="border: 0; border-radius: 14px; background: #1C1B19; color: #FFFFFF; font: inherit; font-weight: 600; padding: 0 20px; cursor: pointer;">Apply</button>
         </form>
-        <sc-if value="{{codeMsg}}" hint-placeholder-val="{{false}}"><span style="font-size: 14px; color: #1B6A86;">{{codeMsg}}</span></sc-if>
+        <sc-if value="{{codeErr}}" hint-placeholder-val="{{false}}"><span role="alert" style="font-size: 14px; color: #B23A26;">That code isn’t valid. Check the spelling and try again.</span></sc-if>
+        <sc-if value="{{hasChips}}" hint-placeholder-val="{{false}}"><div aria-label="Applied codes" style="display: flex; flex-wrap: wrap; gap: 8px;"><sc-if value="{{coDeal}}" hint-placeholder-val="{{false}}"><span title="Deal of the day, applied automatically" style="display: inline-flex; align-items: center; gap: 7px; min-height: 34px; box-sizing: border-box; border-radius: 999px; background: #E4F0F2; color: #1B6A86; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; padding: 0 14px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8L3 12z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>CLOVER2<span style="font-weight: 500; letter-spacing: 0; color: #45413B;">· 2 for $22</span></span></sc-if><sc-if value="{{codeOk}}" hint-placeholder-val="{{false}}"><span style="display: inline-flex; align-items: center; gap: 7px; min-height: 34px; box-sizing: border-box; border-radius: 999px; background: #E4F0F2; color: #1B6A86; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; padding: 0 4px 0 14px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8L3 12z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>HEAVEN15<span style="font-weight: 500; letter-spacing: 0; color: #45413B;">· 15% off</span><button type="button" onClick="{{removeCode}}" aria-label="Remove code HEAVEN15" style="width: 26px; height: 26px; border-radius: 50%; border: 0; background: #FFFFFF; color: #1C1B19; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></span></sc-if></div></sc-if>
+        <sc-if value="{{coDealNudge}}" hint-placeholder-val="{{false}}"><div style="background: #E4F0F2; border-radius: 14px; padding: 12px 14px; font-size: 14px; line-height: 1.45; color: #1C1B19;">Add one more Clover Charm Bracelet and CLOVER2 makes it 2 for $22.</div></sc-if>
         <div style="border-top: 1px solid #DDD8D0; padding-top: 14px; display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
           <div style="display: flex; justify-content: space-between;"><span style="color: #55504A;">Subtotal</span><span>{{subtotal}}</span></div>
-          <sc-if value="{{hasDiscount}}" hint-placeholder-val="{{false}}"><div style="display: flex; justify-content: space-between;"><span style="color: #55504A;">Discount</span><span>−{{discount}}</span></div></sc-if>
+          <sc-if value="{{coDeal}}" hint-placeholder-val="{{false}}"><div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;"><span style="display: flex; align-items: center; gap: 7px; color: #1B6A86; font-weight: 600;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8L3 12z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>CLOVER2 · 2 bracelets for $22</span><span style="color: #1B6A86; font-weight: 600;">−{{coDealOff}}</span></div></sc-if>
+          <sc-if value="{{hasDiscount}}" hint-placeholder-val="{{false}}"><div style="display: flex; justify-content: space-between;"><span style="color: #55504A;">Heaven15 · 15% off</span><span>−{{discount}}</span></div></sc-if>
           <div style="display: flex; justify-content: space-between;"><span style="color: #55504A;">{{shipLabel}}</span><span>{{shipText}}</span></div>
           <div style="display: flex; justify-content: space-between;"><span style="color: #55504A;">Estimated tax</span><span>{{tax}}</span></div>
           <div style="border-top: 1px solid #DDD8D0; padding-top: 12px; display: flex; justify-content: space-between; font-weight: 600; font-size: 20px;"><span>Total</span><span>{{grand}}</span></div>
@@ -192,6 +195,7 @@ a{color:#1C1B19}a:hover{color:#6B5A44}
         <div style="background: #FFFFFF; border-radius: 22px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
           <span style="font-weight: 600; font-size: 16px;">Order summary</span>
           <div style="display: flex; justify-content: space-between;"><span style="color: #6B655E;">Subtotal</span><span>{{subtotal}}</span></div>
+          <sc-if value="{{hasDeal}}" hint-placeholder-val="{{false}}"><div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;"><span style="display: flex; align-items: center; gap: 7px; color: #1B6A86; font-weight: 600;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8L3 12z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>CLOVER2 · Deal of the day</span><span style="color: #1B6A86; font-weight: 600;">−{{dealOff}}</span></div></sc-if><sc-if value="{{dealNudge}}" hint-placeholder-val="{{false}}"><div style="background: #E4F0F2; border-radius: 12px; padding: 10px 12px; font-size: 13px; line-height: 1.45; color: #1C1B19;">Add one more Clover Charm Bracelet and CLOVER2 makes it 2 for $22.</div></sc-if>
           <div style="display: flex; justify-content: space-between;"><span style="color: #6B655E;">Shipping</span><span>{{shipping}}</span></div>
           <div style="border-top: 1px solid #EEEBE6; padding-top: 10px; display: flex; justify-content: space-between; font-weight: 600; font-size: 16px;"><span>Total</span><span>{{total}}</span></div>
         </div>
@@ -336,14 +340,14 @@ class Component extends DCLogic {
       };
     });
     const total = cart.reduce((t, l) => t + (byId[l.id] ? byId[l.id].price * l.qty : 0), 0);
-    const ship = total === 0 || total >= 50 ? 0 : 5.99;
+    const dealN = cart.filter((l) => l.id === 'bracelet').reduce((t, l) => t + l.qty, 0); const dealOff = Math.round(Math.floor(dealN / 2) * 3.98 * 100) / 100; const net = total - dealOff; const ship = total === 0 || net >= 50 ? 0 : 5.99;
     const on = 'font-weight: 600; border-bottom: 2px solid #1C1B19;';
     const off = 'font-weight: 500; border-bottom: 2px solid transparent;';
 
     const pageVals = () => {
       const { method, code, codeOk, placed } = this.state;
       const sub = cart.reduce((t, l) => t + (byId[l.id] ? byId[l.id].price * l.qty : 0), 0);
-      const disc = codeOk ? Math.round(sub * 0.15 * 100) / 100 : 0;
+      const coDealN = cart.filter((l) => l.id === 'bracelet').reduce((t, l) => t + l.qty, 0); const coDealOff = Math.round(Math.floor(coDealN / 2) * 3.98 * 100) / 100; const codeDisc = codeOk ? Math.round((sub - coDealOff) * 0.15 * 100) / 100 : 0; const disc = coDealOff + codeDisc;
       const shipC = method === 'pickup' || sub - disc >= 50 ? 0 : 5.99;
       const tax = Math.round((sub - disc) * 0.095 * 100) / 100;
       const grand = sub - disc + shipC + tax;
@@ -357,10 +361,10 @@ class Component extends DCLogic {
         doneWhen: method === 'pickup' ? 'is ready for pickup' : 'ships',
         methods: [['ship', 'Ship to me', sub - disc >= 50 ? 'Free · arrives in 2 to 4 days' : '$5.99 · free over $50'], ['pickup', 'Free store pickup', 'Ready in 2 hours']].map(([k, label, note]) => ({ label, note, active: k === method ? 'true' : 'false', pick: () => this.setState({ method: k }), style: k === method ? on : off })),
         isShip: method === 'ship', isPickup: method === 'pickup',
-        code, setCode: (e) => this.setState({ code: e.target.value }),
-        applyCode: (e) => { e.preventDefault(); this.setState((s) => ({ codeOk: s.code.trim().toUpperCase() === 'HEAVEN15' })); },
+        code, setCode: (e) => this.setState({ code: e.target.value, codeErr: false }),
+        applyCode: (e) => { e.preventDefault(); this.setState((s) => { const v = s.code.trim().toUpperCase(); if (!v) return {}; if (v === 'HEAVEN15') return { codeOk: true, codeErr: false, code: '' }; if (v === 'CLOVER2') return { codeErr: false, code: '' }; return { codeErr: true }; }); }, removeCode: () => this.setState({ codeOk: false }), codeErr: !!this.state.codeErr, hasChips: !!codeOk || coDealOff > 0, codeOk: !!codeOk,
         codeMsg: codeOk ? 'Heaven15 applied: 15% off' : '',
-        hasDiscount: disc > 0, discount: money(disc),
+        hasDiscount: codeDisc > 0, discount: money(codeDisc), coDeal: coDealOff > 0, coDealOff: money(coDealOff), coDealNudge: coDealN % 2 === 1,
         shipLabel: method === 'pickup' ? 'Store pickup' : 'Shipping',
         shipText: shipC === 0 ? 'Free' : money(shipC),
         tax: money(tax), grand: money(grand),
@@ -461,7 +465,8 @@ class Component extends DCLogic {
       lines,
       subtotal: money(total),
       shipping: ship === 0 ? 'Free' : money(ship),
-      total: money(total + ship)
+      hasDeal: dealOff > 0, dealOff: money(dealOff), dealNudge: dealN % 2 === 1,
+      total: money(net + ship)
     };
   }
 }
