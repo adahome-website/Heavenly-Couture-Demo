@@ -516,6 +516,21 @@ a{color:#1C1B19}a:hover{color:#6B5A44}
             <span style="font-size: 14px; color: #6B655E;">or 4 payments of {{prod.quarter}}</span>
           </div>
         </div>
+        <sc-if value="{{prod.isDeal}}" hint-placeholder-val="{{false}}">
+          <div style="background: #E4F0F2; border-radius: 18px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px 12px;">
+              <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #1B6A86;">Deal of the day</span>
+              <span role="timer" aria-label="Deal ends in {{prod.dealH}} hours {{prod.dealM}} minutes" style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #1C1B19;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2"></path><path d="M9 2h6"></path></svg><span>Ends in <strong style="font-variant-numeric: tabular-nums;">{{prod.dealH}}:{{prod.dealM}}:{{prod.dealS}}</strong></span></span>
+            </div>
+            <p style="margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;"><span style="font-size: 20px; font-weight: 700;">2 for $22</span><span style="font-size: 15px; color: #6B655E; text-decoration: line-through;">$25.98</span><span style="font-size: 14px; color: #1B6A86; font-weight: 600;">You save $3.98</span></p>
+            <div aria-hidden="true" style="height: 6px; border-radius: 999px; background: rgba(27,106,134,0.15); overflow: hidden;"><div style="width: 72%; height: 100%; background: #1B6A86; border-radius: 999px;"></div></div>
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px;">
+              <span style="font-size: 13px; color: #45413B;">72% claimed · only 4 left</span>
+              <button type="button" onClick="{{prod.dealTwo}}" style="border: 0; background: #1B6A86; color: #FFFFFF; font: inherit; font-weight: 600; font-size: 14px; padding: 10px 18px; border-radius: 999px; cursor: pointer;">{{prod.dealBtn}}</button>
+            </div>
+          </div>
+        </sc-if>
+
         <sc-if value="{{hasColors}}" hint-placeholder-val="{{true}}">
           <div style="display: flex; flex-direction: column; gap: 10px;">
             <span style="font-size: 14px; font-weight: 600;">Color: <span style="font-weight: 400;">{{colorName}}</span></span>
@@ -910,8 +925,8 @@ class Component extends DCLogic {
     const slides = [
       { img: 'images/cf72144de8547ea891c65def7591980a.jpg', pos: 'center 60%', alt: 'Palm trees silhouetted against a pink California sunset', kicker: 'Jewelry', title: 'Little gold things,', italic: 'made to stack', text: 'California boutique for clover jewelry, chenille sweatshirts and beach essentials, most under $20.', pid: 'necklace', pTag: '30 sold today', pPos: 'center' },
       { img: 'images/2cfb01ca4a756630b2204812e57539fb.jpg', pos: 'center 50%', alt: 'Looking up at tall Los Angeles palm trees against a blue sky', kicker: 'Sweatshirts', title: 'Wear your town,', italic: 'in soft chenille', text: 'Manhattan Beach chenille hoodies in butter and navy, sized for women and men.', pid: 'mbhoodie', pTag: 'Best seller', pPos: 'center 25%' },
-      { img: 'images/84ec49882ecbce0ef5b44669d6384d6a.jpg', pos: 'center 55%', alt: 'Palm trees along the beach at dusk', kicker: 'Beach Shop', title: 'Everything for', italic: 'a day at the beach', text: 'Turkish towels, totes, hats and shades, ready for sand and sun.', pid: 'towel', pTag: 'Best seller', pPos: 'center' },
-      { img: 'images/1931089eb5a5779e7781dfba5927cd49.jpg', pos: 'center 70%', alt: 'A row of tall palm trees under a soft sky', kicker: 'Custom chenille', title: 'Your words,', italic: 'stitched for you', text: 'Design custom sweatshirts for families, teams and bridal parties. Our #1 best seller.', pid: 'mbcrew', pTag: 'Made for you', pPos: 'center 30%' }
+      { img: 'images/1931089eb5a5779e7781dfba5927cd49.jpg', pos: 'center 70%', alt: 'A row of tall palm trees under a soft sky', kicker: 'Beach Shop', title: 'Everything for', italic: 'a day at the beach', text: 'Turkish towels, totes, hats and shades, ready for sand and sun.', pid: 'towel', pTag: 'Best seller', pPos: 'center' },
+      { img: 'images/84ec49882ecbce0ef5b44669d6384d6a.jpg', pos: 'center 55%', alt: 'Palm trees along the beach at dusk', kicker: 'Custom chenille', title: 'Your words,', italic: 'stitched for you', text: 'Design custom sweatshirts for families, teams and bridal parties. Our #1 best seller.', pid: 'mbcrew', pTag: 'Made for you', pPos: 'center 30%' }
     ];
 
     const notify = (it) => { clearTimeout(this.toastT); this.setState((st) => ({ bump: (st.bump || 0) + 1, toast: true, toastItem: it ? { img: it.img, name: it.name } : st.toastItem })); this.toastT = setTimeout(() => this.setState({ toast: false }), 3600); };
@@ -967,7 +982,7 @@ class Component extends DCLogic {
       const ci = Math.min(colorIdx, Math.max(0, base.sw.length - 1));
       const d = decorate(base);
       return {
-        prod: { ...d, priceText: money(base.price), quarter: money(base.price / 4), catTitle: CT[base.cat][0], bg: CT[base.cat][1] },
+        prod: { ...d, isDeal: base.id === 'bracelet', ...(() => { const n = new Date(this.state.now || Date.now()); const end = new Date(n); end.setHours(24, 0, 0, 0); const r = Math.max(0, Math.floor((end - n) / 1000)); const p = (x) => String(x).padStart(2, '0'); return { dealH: p(Math.floor(r / 3600)), dealM: p(Math.floor((r % 3600) / 60)), dealS: p(r % 60) }; })(), dealBtn: qty >= 2 ? 'Quantity set to 2 \u2713' : 'Get 2 for $22', dealTwo: () => this.setState({ qty: 2 }), priceText: money(base.price), quarter: money(base.price / 4), catTitle: CT[base.cat][0], bg: CT[base.cat][1] },
         mainImg: pics[photo] || base.img,
         thumbs: pics.map((img, i) => ({ img, n: i + 1, active: i === photo ? 'true' : 'false', pick: () => this.setState({ photo: i }), style: i === photo ? 'border: 2px solid #1C1B19;' : 'border: 2px solid transparent;' })),
         hasColors: base.sw.length > 0,

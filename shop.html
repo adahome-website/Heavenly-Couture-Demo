@@ -426,6 +426,21 @@ a{color:#1C1B19}a:hover{color:#6B5A44}
             <span style="font-size: 14px; color: #6B655E;">or 4 payments of {{prod.quarter}}</span>
           </div>
         </div>
+        <sc-if value="{{prod.isDeal}}" hint-placeholder-val="{{false}}">
+          <div style="background: #E4F0F2; border-radius: 18px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px 12px;">
+              <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #1B6A86;">Deal of the day</span>
+              <span role="timer" aria-label="Deal ends in {{prod.dealH}} hours {{prod.dealM}} minutes" style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #1C1B19;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2"></path><path d="M9 2h6"></path></svg><span>Ends in <strong style="font-variant-numeric: tabular-nums;">{{prod.dealH}}:{{prod.dealM}}:{{prod.dealS}}</strong></span></span>
+            </div>
+            <p style="margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;"><span style="font-size: 20px; font-weight: 700;">2 for $22</span><span style="font-size: 15px; color: #6B655E; text-decoration: line-through;">$25.98</span><span style="font-size: 14px; color: #1B6A86; font-weight: 600;">You save $3.98</span></p>
+            <div aria-hidden="true" style="height: 6px; border-radius: 999px; background: rgba(27,106,134,0.15); overflow: hidden;"><div style="width: 72%; height: 100%; background: #1B6A86; border-radius: 999px;"></div></div>
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px;">
+              <span style="font-size: 13px; color: #45413B;">72% claimed · only 4 left</span>
+              <button type="button" onClick="{{prod.dealTwo}}" style="border: 0; background: #1B6A86; color: #FFFFFF; font: inherit; font-weight: 600; font-size: 14px; padding: 10px 18px; border-radius: 999px; cursor: pointer;">{{prod.dealBtn}}</button>
+            </div>
+          </div>
+        </sc-if>
+
         <sc-if value="{{hasColors}}" hint-placeholder-val="{{true}}">
           <div style="display: flex; flex-direction: column; gap: 10px;">
             <span style="font-size: 14px; font-weight: 600;">Color: <span style="font-weight: 400;">{{colorName}}</span></span>
@@ -749,6 +764,7 @@ class Component extends DCLogic {
     this.state = { menuOpen: false, shopOpen: false, slide: 0, cat: 'All', sub: 'All', bagOpen: false, bump: 0, toast: false, q: '', added: {}, bagTab: 'bag', saved: [], cart: [], page: 'All', subF: 'All', priceF: 'All', sort: 'featured', who: 'All', view: '', filtersOpen: false, fg: { cat: true, who: true }, prodOpen: false, prodId: 'mbhoodie', colorIdx: 0, size: 'M', qty: 1, photo: 0, pOpen: 'details' };
   }
   componentDidMount() {
+    this.clock = setInterval(() => { if (this.state.prodOpen !== false || typeof this.state.prodOpen === 'undefined') this.setState({ now: Date.now() }); }, 1000);
     if (typeof window !== 'undefined') {
       try { const raw = localStorage.getItem('hcStore'); if (raw) { const d = JSON.parse(raw) || {}; const up = {}; if (Array.isArray(d.cart)) up.cart = d.cart; if (Array.isArray(d.saved)) up.saved = d.saved; if (d.added && typeof d.added === 'object') up.added = d.added; this.setState(up); } } catch (e) {}
       this.storeSnap = () => JSON.stringify({ cart: this.state.cart, saved: this.state.saved, added: this.state.added });
@@ -936,7 +952,7 @@ class Component extends DCLogic {
       const ci = Math.min(colorIdx, Math.max(0, base.sw.length - 1));
       const d = decorate(base);
       return {
-        prod: { ...d, priceText: money(base.price), quarter: money(base.price / 4), catTitle: CT[base.cat][0], bg: CT[base.cat][1] },
+        prod: { ...d, isDeal: base.id === 'bracelet', ...(() => { const n = new Date(this.state.now || Date.now()); const end = new Date(n); end.setHours(24, 0, 0, 0); const r = Math.max(0, Math.floor((end - n) / 1000)); const p = (x) => String(x).padStart(2, '0'); return { dealH: p(Math.floor(r / 3600)), dealM: p(Math.floor((r % 3600) / 60)), dealS: p(r % 60) }; })(), dealBtn: qty >= 2 ? 'Quantity set to 2 \u2713' : 'Get 2 for $22', dealTwo: () => this.setState({ qty: 2 }), priceText: money(base.price), quarter: money(base.price / 4), catTitle: CT[base.cat][0], bg: CT[base.cat][1] },
         mainImg: pics[photo] || base.img,
         thumbs: pics.map((img, i) => ({ img, n: i + 1, active: i === photo ? 'true' : 'false', pick: () => this.setState({ photo: i }), style: i === photo ? 'border: 2px solid #1C1B19;' : 'border: 2px solid transparent;' })),
         hasColors: base.sw.length > 0,
