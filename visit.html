@@ -376,6 +376,14 @@ class Component extends DCLogic {
     this.state = { menuOpen: false, shopOpen: false, slide: 0, cat: 'All', sub: 'All', bagOpen: false, bump: 0, toast: false, q: '', added: {}, bagTab: 'bag', saved: [], cart: [], topic: 'An order', faq: 0, sent: false, ctName: '', ctEmail: '', triedSend: false, emailTouched: false };
   }
   componentDidMount() {
+    if (typeof window !== 'undefined') {
+      try { const raw = localStorage.getItem('hcStore'); if (raw) { const d = JSON.parse(raw) || {}; const up = {}; if (Array.isArray(d.cart)) up.cart = d.cart; if (Array.isArray(d.saved)) up.saved = d.saved; if (d.added && typeof d.added === 'object') up.added = d.added; this.setState(up); } } catch (e) {}
+      this.storeSnap = () => JSON.stringify({ cart: this.state.cart, saved: this.state.saved, added: this.state.added });
+      this.lastStore = null;
+      this.storeTick = setInterval(() => { const cur = this.storeSnap(); if (this.lastStore === null) { this.lastStore = cur; return; } if (cur !== this.lastStore) { this.lastStore = cur; try { localStorage.setItem('hcStore', cur); } catch (e) {} } }, 250);
+      this.onStore = (ev) => { if (ev.key !== 'hcStore' || !ev.newValue) return; try { const d = JSON.parse(ev.newValue) || {}; this.lastStore = ev.newValue; this.setState({ cart: Array.isArray(d.cart) ? d.cart : [], saved: Array.isArray(d.saved) ? d.saved : [], added: d.added || {} }); } catch (e) {} };
+      window.addEventListener('storage', this.onStore);
+    }
   }
   scrollPop(dir, loop) {
     const el = this.popEl;

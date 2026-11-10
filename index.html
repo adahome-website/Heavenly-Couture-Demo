@@ -277,10 +277,10 @@ a{color:#1C1B19}a:hover{color:#6B5A44}
               <button type="button" aria-label="Save {{p.name}}" aria-pressed="{{p.savedAttr}}" onClick="{{p.toggleSave}}" style="position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border-radius: 50%; border: 0; background: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center; {{p.heartColor}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="{{p.heartFill}}" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></button>
               <button type="button" aria-label="Add {{p.name}} to bag" onClick="{{p.add}}" style="position: absolute; right: 10px; bottom: 10px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: #1C1B19; color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"></path><path d="M9 8a3 3 0 0 1 6 0"></path></svg></button>
             </div>
-            <div style="padding: 0 6px 6px; display: flex; flex-direction: column; gap: 8px;">
+            <div style="padding: 0 6px 6px; display: flex; flex-direction: column; gap: 8px; flex: 1 1 auto;">
               <span style="font-size: 13px; color: #6B655E;">{{p.sub}}</span>
               <button type="button" onClick="{{p.open}}" title="{{p.name}}" style="border: 0; background: transparent; padding: 0; text-align: left; font: inherit; font-weight: 600; font-size: 16px; line-height: 1.3; color: #1C1B19; cursor: pointer; display: block; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{p.name}}</button>
-              <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+              <div class="hc-pricerow" style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: auto;">
                 <span style="font-size: 16px;">{{p.price}}</span>
                 <div style="display: flex; gap: 6px;">
                   <sc-for list="{{p.sw}}" as="s" hint-placeholder-count="2">
@@ -368,10 +368,10 @@ a{color:#1C1B19}a:hover{color:#6B5A44}
               <button type="button" aria-label="Save {{p.name}}" aria-pressed="{{p.savedAttr}}" onClick="{{p.toggleSave}}" style="position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border-radius: 50%; border: 0; background: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center; {{p.heartColor}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="{{p.heartFill}}" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></button>
               <button type="button" aria-label="Add {{p.name}} to bag" onClick="{{p.add}}" style="position: absolute; right: 10px; bottom: 10px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: #1C1B19; color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"></path><path d="M9 8a3 3 0 0 1 6 0"></path></svg></button>
             </div>
-            <div style="padding: 0 6px 6px; display: flex; flex-direction: column; gap: 8px;">
+            <div style="padding: 0 6px 6px; display: flex; flex-direction: column; gap: 8px; flex: 1 1 auto;">
               <span style="font-size: 13px; color: #6B655E;">{{p.sub}}</span>
               <button type="button" onClick="{{p.open}}" title="{{p.name}}" style="border: 0; background: transparent; padding: 0; text-align: left; font: inherit; font-weight: 600; font-size: 16px; line-height: 1.3; color: #1C1B19; cursor: pointer; display: block; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{p.name}}</button>
-              <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+              <div class="hc-pricerow" style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: auto;">
                 <span style="font-size: 16px;">{{p.price}}</span>
                 <div style="display: flex; gap: 6px;">
                   <sc-for list="{{p.sw}}" as="s" hint-placeholder-count="2">
@@ -579,10 +579,10 @@ a{color:#1C1B19}a:hover{color:#6B5A44}
               <button type="button" aria-label="Save {{p.name}}" aria-pressed="{{p.savedAttr}}" onClick="{{p.toggleSave}}" style="position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border-radius: 50%; border: 0; background: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center; {{p.heartColor}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="{{p.heartFill}}" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></button>
               <button type="button" aria-label="Add {{p.name}} to bag" onClick="{{p.add}}" style="position: absolute; right: 10px; bottom: 10px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: #1C1B19; color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"></path><path d="M9 8a3 3 0 0 1 6 0"></path></svg></button>
             </div>
-            <div style="padding: 0 6px 6px; display: flex; flex-direction: column; gap: 8px;">
+            <div style="padding: 0 6px 6px; display: flex; flex-direction: column; gap: 8px; flex: 1 1 auto;">
               <span style="font-size: 13px; color: #6B655E;">{{p.sub}}</span>
               <button type="button" onClick="{{p.open}}" style="border: 0; background: transparent; padding: 0; text-align: left; font: inherit; font-weight: 600; font-size: 16px; line-height: 1.3; color: #1C1B19; cursor: pointer; text-decoration: underline; text-underline-offset: 4px;">{{p.name}}</button>
-              <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+              <div class="hc-pricerow" style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: auto;">
                 <span style="font-size: 16px;">{{p.price}}</span>
                 <div style="display: flex; gap: 6px;">
                   <sc-for list="{{p.sw}}" as="s" hint-placeholder-count="2">
@@ -800,6 +800,14 @@ class Component extends DCLogic {
     this.state = { slide: 0, cat: 'All', sub: 'All', bagOpen: false, bump: 0, toast: false, q: '', added: {}, bagTab: 'bag', saved: [], cart: [], who: 'All', menuOpen: false, shopOpen: false, prodOpen: false, prodId: 'mbhoodie', colorIdx: 0, size: 'M', qty: 1, photo: 0, pOpen: 'details' };
   }
   componentDidMount() {
+    if (typeof window !== 'undefined') {
+      try { const raw = localStorage.getItem('hcStore'); if (raw) { const d = JSON.parse(raw) || {}; const up = {}; if (Array.isArray(d.cart)) up.cart = d.cart; if (Array.isArray(d.saved)) up.saved = d.saved; if (d.added && typeof d.added === 'object') up.added = d.added; this.setState(up); } } catch (e) {}
+      this.storeSnap = () => JSON.stringify({ cart: this.state.cart, saved: this.state.saved, added: this.state.added });
+      this.lastStore = null;
+      this.storeTick = setInterval(() => { const cur = this.storeSnap(); if (this.lastStore === null) { this.lastStore = cur; return; } if (cur !== this.lastStore) { this.lastStore = cur; try { localStorage.setItem('hcStore', cur); } catch (e) {} } }, 250);
+      this.onStore = (ev) => { if (ev.key !== 'hcStore' || !ev.newValue) return; try { const d = JSON.parse(ev.newValue) || {}; this.lastStore = ev.newValue; this.setState({ cart: Array.isArray(d.cart) ? d.cart : [], saved: Array.isArray(d.saved) ? d.saved : [], added: d.added || {} }); } catch (e) {} };
+      window.addEventListener('storage', this.onStore);
+    }
     this.clock = setInterval(() => this.setState({ now: Date.now() }), 1000);
     if (typeof window !== 'undefined') {
       this.navKeys = ['prodOpen', 'prodId'];
